@@ -1,7 +1,7 @@
 package com.zhukovsd.graphs;
 
 /**
- * Edge of {@link Graph graph}, a directional connection between 2 {@link Vertex vertexes}
+ * Edge of {@link Graph graph}, a directional connection between 2 {@link Vertex vertexes}.
  */
 class Edge {
     /**

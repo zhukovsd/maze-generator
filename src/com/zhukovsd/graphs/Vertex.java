@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Vertex of {@link Graph graph}, connected with another vertexes
+ * Vertex of {@link Graph graph}, connected with another vertexes.
  */
 public class Vertex {
     /**

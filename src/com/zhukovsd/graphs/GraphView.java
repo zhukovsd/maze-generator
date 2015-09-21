@@ -3,7 +3,7 @@ package com.zhukovsd.graphs;
 import java.awt.*;
 
 /**
- * Representation of {@link Graph graph}, which can be painted on java.awt.Graphic object
+ * Representation of {@link Graph graph}, which can be painted on java.awt.Graphic object.
  * @param <T> type of represented {@link Graph graph}
  * @param <U> type of {@link Vertex vertex} of represented {@link Graph graph}
  */
