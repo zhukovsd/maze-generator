@@ -1,9 +1,12 @@
 package com.zhukovsd.graphs;
 
 /**
- * Graph edge, a directional connection between 2 vertexes
+ * Edge of {@link Graph graph}, a directional connection between 2 {@link Vertex vertexes}
  */
 class Edge {
+    /**
+     * {@link Vertex vertexes} connected by current edge
+     */
     public final Vertex source, destination;
 
     public Edge(Vertex source, Vertex destination) {
