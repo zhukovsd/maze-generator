@@ -11,17 +11,7 @@ public abstract class GraphView<T extends Graph<U>, U extends Vertex> {
     /**
      * {@link Graph Graph} object, represented by current view. Immutable.
      */
-    public final T graph;
-
-    /**
-     * Image width required to represent current view
-     */
-    public final int width = 0;
-
-    /**
-     * Image height required to represent current view
-     */
-    public final int height = 0;
+    protected final T graph;
 
     public GraphView(T graph) {
         this.graph = graph;
@@ -31,7 +21,7 @@ public abstract class GraphView<T extends Graph<U>, U extends Vertex> {
      * Abstract method for calculating size of image, representing current view. Must be overrode in derived class
      * @return image size as {@link Point} object
      */
-    protected abstract Point calculateSize();
+    public abstract Point getSize();
 
     /**
      * Abstract method for calculating vertex position in current view representation. Must be overrode in derived class
