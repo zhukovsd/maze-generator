@@ -4,7 +4,7 @@ import com.zhukovsd.graphs.Vertex;
 import com.zhukovsd.graphs.embedded.EmbeddedGraph;
 
 /**
- * Created by ZhukovSD on 21.09.2015.
+ * Vertex of graph in form of rectangular lattice, which position described by row and column indexes in this lattice.
  */
 public class RectangularGraph extends EmbeddedGraph<RectangularVertex> {
     public final int rowCount;

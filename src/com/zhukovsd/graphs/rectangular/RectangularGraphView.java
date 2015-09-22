@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 
 /**
- * Created by ZhukovSD on 22.09.2015.
+ * View of graph in form of rectangular lattice.
  */
 public class RectangularGraphView extends EmbeddedGraphView<RectangularVertex> {
     private int indent, nodeSpacing;
