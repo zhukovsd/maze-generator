@@ -15,6 +15,11 @@ public abstract class GraphView<T extends Graph<U>, U extends Vertex> {
      */
     private final T graph;
 
+    /**
+     * Color which will be used for painting vertexes and edges of graph.
+     */
+    public Color color;
+
     public GraphView(T graph) {
         this.graph = graph;
     }
@@ -67,6 +72,8 @@ public abstract class GraphView<T extends Graph<U>, U extends Vertex> {
      * @param graphics {@link Graphics graphics} object to paint on
      */
     public void paint(Graphics graphics) {
+        graphics.setColor(color);
+
         for (U vertex : graph.vertexList) {
             paintVertex(graphics, vertex);
 
