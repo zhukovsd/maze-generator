@@ -11,10 +11,18 @@ public abstract class GraphView<T extends Graph<U>, U extends Vertex> {
     /**
      * {@link Graph Graph} object, represented by current view. Immutable.
      */
-    protected final T graph;
+    private final T graph;
 
     public GraphView(T graph) {
         this.graph = graph;
+    }
+
+    /**
+     * Getter for typed graph, may be overrode if graph have to be specific of specific type, derived from T
+     * @return stored graph to represent
+     */
+    protected T getGraph() {
+        return graph;
     }
 
     /**
