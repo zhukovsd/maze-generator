@@ -1,5 +1,7 @@
 package com.zhukovsd.graphs;
 
+import com.zhukovsd.graphs.embedded.EmbeddedVertex;
+
 import java.awt.*;
 
 /**
@@ -36,7 +38,7 @@ public abstract class GraphView<T extends Graph<U>, U extends Vertex> {
      * @param vertex vertex to calculate position of
      * @return vertex position as {@link Point} object
      */
-    protected abstract Point calculateVertexPosition(Vertex vertex);
+    protected abstract Point calculateVertexPosition(U vertex);
 
     /**
      * Paint given vertex on given {@link Graphics graphics} object
@@ -52,8 +54,8 @@ public abstract class GraphView<T extends Graph<U>, U extends Vertex> {
      * @param graphics {@link Graphics graphics} object to paint on
      */
     protected void paintEdge(Graphics graphics, Edge edge) {
-        Point sourcePosition = calculateVertexPosition(edge.destination);
-        Point destinationPosition = calculateVertexPosition(edge.source);
+        Point sourcePosition = calculateVertexPosition((U) edge.destination);
+        Point destinationPosition = calculateVertexPosition((U) edge.source);
 
         graphics.drawLine(sourcePosition.x, sourcePosition.y, destinationPosition.x, destinationPosition.y);
     }
