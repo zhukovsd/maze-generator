@@ -43,6 +43,7 @@ public abstract class GraphView<T extends Graph<U>, U extends Vertex> {
     /**
      * Paint given vertex on given {@link Graphics graphics} object
      * @param graphics {@link Graphics graphics} object to paint on
+     * @param vertex {@link Vertex vertex} object to paint
      */
     protected void paintVertex(Graphics graphics, U vertex) {
         Point position = calculateVertexPosition(vertex);
@@ -52,6 +53,7 @@ public abstract class GraphView<T extends Graph<U>, U extends Vertex> {
     /**
      * Paint given link on given {@link Graphics graphics} object
      * @param graphics {@link Graphics graphics} object to paint on
+     * @param edge {@link Edge edge} object to paint
      */
     protected void paintEdge(Graphics graphics, Edge edge) {
         Point sourcePosition = calculateVertexPosition((U) edge.destination);

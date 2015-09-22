@@ -16,7 +16,7 @@ public class Vertex {
      * Method to connect current vertex to another vertex by creating edge(s)
      * @param vertex vertex to connect to
      * @param inBothDirections if true, 2 edges will be created, from <code>this</code> to <code>vertex</code>
-     * and vice versa, otherwise only one edge will be created (<code>this -> vertex</code>)
+     * and vice versa, otherwise only one edge will be created in direction from current vertex
      */
     public void connect(Vertex vertex, boolean inBothDirections) {
         edgeList.add(new Edge(this, vertex));
