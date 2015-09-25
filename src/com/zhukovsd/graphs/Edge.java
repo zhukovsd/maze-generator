@@ -3,7 +3,7 @@ package com.zhukovsd.graphs;
 /**
  * Edge of {@link Graph graph}, a directional connection between 2 {@link Vertex vertexes}.
  */
-class Edge {
+public class Edge {
     /**
      * {@link Vertex vertexes} connected by current edge
      */
