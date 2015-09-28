@@ -15,7 +15,7 @@ public abstract class EmbeddedVertex extends Vertex {
     protected abstract Point2D.Double getPosition();
 
     /**
-     * Compare 2 vertexes positions relatively to <code>center</code> vertex position. If in current vertex ->right vertex arc
+     * Compare 2 vertexes positions relatively to <code>center</code> vertex position. If in current <i>vertex-right vertex</i> arc
      * right vertex closer to current vertex in clockwise direction, return -1, if closer in counterclockwise direction,
      * return 1, return 0 if equals
      * @param center center node, current and right vertexes will be compares relatively to it
