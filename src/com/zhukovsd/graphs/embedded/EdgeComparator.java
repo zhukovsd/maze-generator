@@ -4,14 +4,14 @@ import com.zhukovsd.graphs.Edge;
 import java.util.Comparator;
 
 /**
- * Comparator implementation for <code>Edge</code> class. Can be used for sorting collections of <code>Edges</code>
+ * Comparator implementation for <code>Edge</code> class, sorts collections of <code>Edges</code> in counterclockwise order
  */
 class EdgeComparator implements Comparator<Edge> {
-    @Override
     /**
      * Comparing 2 edges. Only edges of <code>EmbeddedVertex</code> class can be compared, return 0 otherwise.
      * Method expects that edges have 1 common vertex.
      */
+    @Override
     public int compare(Edge o1, Edge o2) {
         if ((o1.source instanceof EmbeddedVertex) && (o2.source instanceof EmbeddedVertex)) {
             // compare o1.dest and o2.dest relatively to o2.source
