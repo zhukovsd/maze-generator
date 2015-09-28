@@ -14,11 +14,27 @@ public class Graph<E extends Vertex> {
     public final List<E> vertexList = new ArrayList<E>();
 
     /**
-     * Method to connect two vertexes by creating directional edge. Method assumes given vertexes belongs to current graph.
+     * Method connects 2 {@link Vertex vertexes} by creating directional {@link Edge edge}.
+     * Method assumes that given vertexes belongs to current graph.
      * @param left left vertex, source for new directional edge connecting given vertexes
      * @param right right vertex, destination for new directional edge connecting given vertexes
+     * @return new edge, connecting given vertexes
      */
-    public void connect(Vertex left, Vertex right) {
-        left.edgeList.add(new Edge(left, right));
+    public Edge connect(Vertex left, Vertex right) {
+        Edge edge = new Edge(left, right);
+        left.edgeList.add(edge);
+
+        return edge;
+    }
+
+    /**
+     * Method connects 2 {@link Vertex vertexes} by creating 2 directional {@link Edge edges}.
+     * Method assumes that given vertexes belongs to current graph.
+     * @param left first vertex to connect
+     * @param right second vertex to connect
+     */
+    public void connectToEachOther(Vertex left, Vertex right) {
+        connect(left, right);
+        connect(right, left);
     }
 }
