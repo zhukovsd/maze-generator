@@ -1,12 +1,11 @@
 package com.zhukovsd.graphs;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Vertex of {@link Graph graph}, connected with another vertexes.
  */
 public class Vertex {
+    public char tag;
+
     /**
      * List of {@link Edge edges}, directional connections between current vertex and adjacent to it
      */
