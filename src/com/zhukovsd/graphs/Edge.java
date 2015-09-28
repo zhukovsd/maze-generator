@@ -9,6 +9,11 @@ public class Edge {
      */
     public final Vertex source, destination;
 
+    /**
+     * Create new edge by given {@link Vertex vertexes}
+     * @param source source vertex
+     * @param destination destination vertex
+     */
     public Edge(Vertex source, Vertex destination) {
         this.source = source;
         this.destination = destination;
