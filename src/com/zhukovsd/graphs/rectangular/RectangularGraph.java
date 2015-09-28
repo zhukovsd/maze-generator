@@ -20,8 +20,8 @@ public class RectangularGraph extends EmbeddedGraph<RectangularVertex> {
             for (int j = 0; j < columnCount; j++) {
                 RectangularVertex vertex = new RectangularVertex(i, j);
 
-                if (i > 0) connect(vertex, lattice[i-1][j]);
-                if (j > 0) connect(vertex, lattice[i][j-1]);
+                if (i > 0) connectToEachOther(vertex, lattice[i-1][j]);
+                if (j > 0) connectToEachOther(vertex, lattice[i][j-1]);
 
                 lattice[i][j] = vertex;
                 vertexList.add(vertex);

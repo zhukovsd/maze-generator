@@ -14,6 +14,11 @@ class RectangularVertex extends EmbeddedVertex {
         this.column = column;
     }
 
+    /**
+     * Retrieve position for current vertex in the coordinate space. Position for rectangular vertex set by it's
+     * row and column indexes in rectangular lattice
+     * @return vertex position as {@link Point2D.Double point} object
+     */
     @Override
     protected Point2D.Double getPosition() {
         return new Point2D.Double(column, row);
