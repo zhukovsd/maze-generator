@@ -9,16 +9,16 @@ import java.util.List;
 /**
  * Face is the part of plain, bounded by edges
  */
-class Face {
+public class Face {
     /**
      * Edges, which bounds current face.
      */
     public final List<Edge> edgeList = new ArrayList<Edge>();
 
     /**
-     * Vertexes, which lays in corners of current faces.
+     * Vertexes, which lays in corners of current face.
      */
-    public final List<Vertex> vertexList = new ArrayList<Vertex>();
+    public final List<EmbeddedVertex> vertexList = new ArrayList<EmbeddedVertex>();
     /**
      * Faces of same graph, which has one or multiple common edges with current graph.
      */
@@ -33,7 +33,7 @@ class Face {
         this.edgeList.addAll(edgeList);
 
         for (Edge edge : this.edgeList) {
-            vertexList.add(edge.source);
+            vertexList.add(((EmbeddedVertex) edge.source));
         }
     }
 
