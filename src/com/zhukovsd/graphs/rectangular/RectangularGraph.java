@@ -1,6 +1,5 @@
 package com.zhukovsd.graphs.rectangular;
 
-import com.zhukovsd.graphs.Vertex;
 import com.zhukovsd.graphs.embedded.EmbeddedGraph;
 
 /**

@@ -6,7 +6,7 @@ import java.awt.geom.Point2D;
 /**
  * Vertex of graph in form of rectangular lattice, which position described by row and column indexes in this lattice.
  */
-class RectangularVertex extends EmbeddedVertex {
+public class RectangularVertex extends EmbeddedVertex {
     private int row, column;
 
     public RectangularVertex(int row, int column) {
