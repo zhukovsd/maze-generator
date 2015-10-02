@@ -33,7 +33,7 @@ public class RectangularGraphView extends EmbeddedGraphView<RectangularVertex> {
     }
 
     @Override
-    protected Point calculateVertexPosition(RectangularVertex vertex) {
+    public Point calculateVertexPosition(RectangularVertex vertex) {
         Point2D.Double position = vertex.getPosition();
 
         return new Point(
