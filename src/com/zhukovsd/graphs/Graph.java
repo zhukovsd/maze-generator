@@ -9,12 +9,12 @@ import java.util.List;
  */
 public class Graph<E extends Vertex> {
     /**
-     * A list of connected {@link Vertex vertexes}
+     * A list of connected {@link Vertex vertexes}.
      */
     public final List<E> vertexList = new ArrayList<E>();
 
     /**
-     * Method adds {@link Vertex vertex} to the current graph.
+     * Method adds {@link Vertex vertex} to the graph.
      * @param vertex vertex to add
      */
     public void addVertex(E vertex) {
@@ -44,5 +44,25 @@ public class Graph<E extends Vertex> {
     public void connectToEachOther(Vertex left, Vertex right) {
         connect(left, right);
         connect(right, left);
+    }
+
+    /**
+     *
+     */
+    public void disconnect(Vertex left, Vertex right) {
+        for (Edge edge : left.edgeList) {
+            if (edge.destination == right) {
+                left.edgeList.remove(edge);
+                break;
+            }
+        }
+    }
+
+    /**
+     *
+     */
+    public void disconnectFromEachOther(Vertex left, Vertex right) {
+        disconnect(left, right);
+        disconnect(right, left);
     }
 }
