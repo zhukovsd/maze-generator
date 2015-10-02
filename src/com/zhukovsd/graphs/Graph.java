@@ -14,6 +14,14 @@ public class Graph<E extends Vertex> {
     public final List<E> vertexList = new ArrayList<E>();
 
     /**
+     * Method adds {@link Vertex vertex} to the current graph.
+     * @param vertex vertex to add
+     */
+    public void addVertex(E vertex) {
+        vertexList.add(vertex);
+    }
+
+    /**
      * Method connects 2 {@link Vertex vertexes} by creating directional {@link Edge edge}.
      * Method assumes that given vertexes belongs to current graph.
      * @param left left vertex, source for new directional edge connecting given vertexes
