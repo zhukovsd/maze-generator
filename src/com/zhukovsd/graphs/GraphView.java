@@ -40,7 +40,7 @@ public abstract class GraphView<T extends Graph<U>, U extends Vertex> {
      * @param vertex vertex to calculate position of
      * @return vertex position as {@link Point} object
      */
-    protected abstract Point calculateVertexPosition(U vertex);
+    public abstract Point calculateVertexPosition(U vertex);
 
     /**
      * Paint given vertex on given {@link Graphics2D graphics} object.
