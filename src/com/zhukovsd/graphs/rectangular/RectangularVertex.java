@@ -6,7 +6,7 @@ import java.awt.geom.Point2D;
 /**
  * Vertex of graph in form of rectangular lattice, which position described by row and column indexes in this lattice.
  */
-public class RectangularVertex extends EmbeddedVertex {
+public class RectangularVertex extends EmbeddedVertex<RectangularVertex> {
     private int row, column;
 
     public RectangularVertex(int row, int column) {
@@ -20,7 +20,7 @@ public class RectangularVertex extends EmbeddedVertex {
      * @return vertex position as {@link Point2D.Double point} object
      */
     @Override
-    protected Point2D.Double getPosition() {
+    public Point2D.Double getPosition() {
         return new Point2D.Double(column, row);
     }
 }
