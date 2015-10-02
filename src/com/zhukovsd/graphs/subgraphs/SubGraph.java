@@ -37,7 +37,14 @@ public class SubGraph<E extends Vertex> extends Graph<SubGraphVertex> {
     /**
      *
      */
-    public void findSpanningTree() {
+    public void disconnectFromEachOtherByParents(Vertex leftParentNode, Vertex rightParentNode) {
+        disconnectFromEachOther(parentVertexesMap.get(leftParentNode), parentVertexesMap.get(rightParentNode));
+    }
+
+    /**
+     *
+     */
+     void findSpanningTree() {
         Random rand = new Random();
         List<Vertex> list = new ArrayList<>();
 
