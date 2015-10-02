@@ -8,41 +8,49 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Face is the part of plain, bounded by edges
+ * Face is the part of the plain, on which {@link EmbeddedGraph embedded graph} is placed, bounded by edges.
+ * @param <E> type of {@link Vertex vertexes} of embedded graph, which vertexes and edges forms face
  */
-public class Face {
+public class Face<E extends Vertex<E>> {
     /**
      * Edges, which bounds current face.
      */
-    public final List<Edge> edgeList = new ArrayList<Edge>();
+    public final List<Edge<E>> edgeList = new ArrayList<>();
 
     /**
      * Vertexes, which lays in corners of current face.
      */
-    public final List<EmbeddedVertex> vertexList = new ArrayList<EmbeddedVertex>();
+    public final List<E> vertexList = new ArrayList<>();
+
     /**
-     * Faces of same graph, which has one or multiple common edges with current graph.
+     * Faces of same {@link EmbeddedGraph embedded graph}, which has one or multiple common edges with current face.
      */
-    public final List<Face> adjacentFaceList = new ArrayList<Face>();
+    public final List<Face<E>> adjacentFaceList = new ArrayList<>();
 
     /**
      * Create face by list of edges bounding it.
      * @param edgeList list of edges. Constructor expects that edges in this list forms cycle, i.e. each next edge's
      * source is previous edge's destination
      */
-    Face(List<Edge> edgeList) {
+    Face(List<Edge<E>> edgeList) {
         this.edgeList.addAll(edgeList);
 
-        for (Edge edge : this.edgeList) {
-            vertexList.add(((EmbeddedVertex) edge.source));
+        for (Edge<E> edge : this.edgeList) {
+            vertexList.add(edge.source);
         }
     }
 
-    public EdgeList findCommonEdges(Face face) {
-        EdgeList result = new EdgeList();
+    /**
+     * Find edges, which bounds 2 faces simultaneously, current and given. Edges considered as non-directional,
+     * that is, if one face contains edge <b>AB</b> and another face contains edge <b>BA</b>, then edge <b>AB</b>
+     * counts as common for this 2 faces.
+     * @param face face to search common faces with
+     */
+    public EdgeList<E> findCommonEdges(Face<E> face) {
+        EdgeList<E> result = new EdgeList<>();
 
-        for (Edge edge1 : edgeList) {
-            for (Edge edge2 : face.edgeList) {
+        for (Edge<E> edge1 : edgeList) {
+            for (Edge<E> edge2 : face.edgeList) {
                 if (((edge1.source == edge2.source) && (edge1.destination == edge2.destination)) ||
                         ((edge1.source == edge2.destination) && (edge1.destination == edge2.source))
                 ) {
