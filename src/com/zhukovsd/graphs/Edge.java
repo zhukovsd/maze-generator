@@ -2,25 +2,27 @@ package com.zhukovsd.graphs;
 
 /**
  * Edge of {@link Graph graph}, a directional connection between 2 {@link Vertex vertexes}.
+ * @param <T> type of vertexes, connected by edge
  */
-public class Edge {
+public class Edge<T extends Vertex<T>> {
     /**
-     * {@link Vertex vertexes} connected by current edge
+     * One of {@link Vertex vertexes} connected by current edge
      */
-    public final Vertex source, destination;
+    public final T source, destination;
 
     /**
      * Create new edge by given {@link Vertex vertexes}
      * @param source source vertex
      * @param destination destination vertex
      */
-    public Edge(Vertex source, Vertex destination) {
+    public Edge(T source, T destination) {
         this.source = source;
         this.destination = destination;
     }
 
     /**
-     * Get string representation for current edge. If all it's vertexes has tags, result is concatenation of all this tags.
+     * Get string representation for current edge. If all it's {@link Vertex vertexes} has tags,
+     * result is concatenation of all their tags.
      * @return string representation for current edge
      */
     @Override
