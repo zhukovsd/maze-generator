@@ -23,7 +23,7 @@ public class RectangularGraph extends EmbeddedGraph<RectangularVertex> {
                 if (j > 0) connectToEachOther(vertex, lattice[i][j-1]);
 
                 lattice[i][j] = vertex;
-                vertexList.add(vertex);
+                addVertex(vertex);
             }
         }
     }
