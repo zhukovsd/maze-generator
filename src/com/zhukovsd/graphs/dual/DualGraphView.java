@@ -1,5 +1,6 @@
 package com.zhukovsd.graphs.dual;
 
+import com.zhukovsd.graphs.Edge;
 import com.zhukovsd.graphs.GraphView;
 import com.zhukovsd.graphs.embedded.EmbeddedGraphView;
 import com.zhukovsd.graphs.embedded.EmbeddedVertex;
@@ -11,7 +12,7 @@ import java.awt.*;
  * Dual graph view may only exist in context of outer graph view.
  * @param <T> type of vertex in outer graph for represented {@link DualGraph dual graph}
  */
-public class DualGraphView<T extends EmbeddedVertex> extends GraphView<DualGraph<T>, DualVertex> {
+public class DualGraphView<T extends EmbeddedVertex<T>> extends GraphView<DualGraph<T>, DualVertex<T>> {
     private final EmbeddedGraphView<T> outerView;
 
     /**
@@ -41,7 +42,7 @@ public class DualGraphView<T extends EmbeddedVertex> extends GraphView<DualGraph
      * @return vertex position as {@link Point} object
      */
     @Override
-    public Point calculateVertexPosition(DualVertex vertex) {
+    public Point calculateVertexPosition(DualVertex<T> vertex) {
         return outerView.calculateFaceCenter(vertex.face);
     }
 }
