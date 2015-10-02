@@ -8,18 +8,19 @@ import com.zhukovsd.graphs.Vertex;
 import java.util.*;
 
 /**
- * Abstract graph, embedded to the coordinate space.
+ * Abstract graph, embedded to the coordinate space. That kind of graph has faces.
+ * @param <E> type of {@link EmbeddedVertex embedded vertex} in graph.
  */
-public class EmbeddedGraph<E extends EmbeddedVertex> extends Graph<E> {
+public class EmbeddedGraph<E extends EmbeddedVertex<E>> extends Graph<E> {
     /**
      * Private storage for current graph {@link Face faces}.
      */
-    private List<Face> faceList;
+    private List<Face<E>> faceList;
 
     /**
      * Map that consists of reverse {@link Edge} edges pairs. Used for fast access to reverse edge for given edge.
      */
-    private HashMap<Edge, Edge> reverseEdgesMap = new HashMap<Edge, Edge>();
+    private HashMap<Edge<E>, Edge<E>> reverseEdgesMap = new HashMap<>();
 
     /**
      * Method connects 2 {@link Vertex vertexes} by creating 2 directional {@link Edge edges}.
@@ -28,9 +29,9 @@ public class EmbeddedGraph<E extends EmbeddedVertex> extends Graph<E> {
      * @param right second vertex to connect
      */
     @Override
-    public void connectToEachOther(Vertex left, Vertex right) {
-        Edge leftEdge = connect(left, right);
-        Edge rightEdge = connect(right, left);
+    public void connectToEachOther(E left, E right) {
+        Edge<E> leftEdge = connect(left, right);
+        Edge<E> rightEdge = connect(right, left);
 
         reverseEdgesMap.put(leftEdge, rightEdge);
         reverseEdgesMap.put(rightEdge, leftEdge);
@@ -40,7 +41,7 @@ public class EmbeddedGraph<E extends EmbeddedVertex> extends Graph<E> {
      * Lazy initialize of get list of current embedded graph's face list.
      * @return face list
      */
-    public List<Face> getFaces() {
+    public List<Face<E>> getFaces() {
         if (faceList == null) faceList = findFaces();
 
         return faceList;
@@ -81,7 +82,7 @@ public class EmbeddedGraph<E extends EmbeddedVertex> extends Graph<E> {
      * </ul>
      * @return list with found faces
      */
-    private List<Face> findFaces() {
+    private List<Face<E>> findFaces() {
         /**
          * Utility class used for finding faces, stores information for edge, used as value in edge-data map.
          */
@@ -94,28 +95,28 @@ public class EmbeddedGraph<E extends EmbeddedVertex> extends Graph<E> {
             /**
              * Preceding reverse edge for corresponding edge.
              */
-            Edge precedingReverseEdge;
+            Edge<E> precedingReverseEdge;
             /**
              * Face that bounded by this edge.
              */
-            List<Face> faces = new ArrayList<Face>();
+            List<Face<E>> faces = new ArrayList<>();
 
             /**
              * Initialize instance with pre-calculated preceding reverse edge.
              * @param precedingReverseEdge pre-calculated preceding reverse edge
              */
-            public EdgeData(Edge precedingReverseEdge) {
+            public EdgeData(Edge<E> precedingReverseEdge) {
                 this.precedingReverseEdge = precedingReverseEdge;
             }
         }
 
-        List<Face> result = new ArrayList<Face>();
+        List<Face<E>> result = new ArrayList<>();
 
-        ArrayList<Edge> edgeList = new ArrayList<Edge>();
-        EdgeComparator edgeComparator = new EdgeComparator();
+        ArrayList<Edge<E>> edgeList = new ArrayList<>();
+        EdgeComparator<E> edgeComparator = new EdgeComparator<>();
 
         // compose add all edges of graph into one list
-        for (Vertex vertex : vertexList) {
+        for (E vertex : vertexList) {
             vertex.edgeList.sort(edgeComparator);
             edgeList.addAll(vertex.edgeList);
 
@@ -125,22 +126,22 @@ public class EmbeddedGraph<E extends EmbeddedVertex> extends Graph<E> {
         }
 
         // map, that stores additional data for every edge in edgeList, that necessary for faces finding algorithm
-        HashMap<Edge, EdgeData> edgeMap = new HashMap<Edge, EdgeData>();
-        for (Edge edge : edgeList) {
+        HashMap<Edge<E>, EdgeData> edgeMap = new HashMap<>();
+        for (Edge<E> edge : edgeList) {
             // find preceding reverse edges as described in 3.iii.b step of find faces algorithm
-            Edge precedingReverseEdge = edge.destination.edgeList.previous(reverseEdgesMap.get(edge));
+            Edge<E> precedingReverseEdge = edge.destination.edgeList.previous(reverseEdgesMap.get(edge));
 
             edgeMap.put(edge, new EdgeData(precedingReverseEdge));
         }
 
-        for (Edge edge : edgeList) {
-            EdgeList loopList = new EdgeList();
+        for (Edge<E> edge : edgeList) {
+            EdgeList<E> loopList = new EdgeList<>();
             loopList.add(edge);
 
             boolean isLoopFound = false;
             if (!edgeMap.get(edge).isIterated) {
                 while (!isLoopFound) {
-                    Edge loopEdge = loopList.get(loopList.size() - 1);
+                    Edge<E> loopEdge = loopList.get(loopList.size() - 1);
 
                     loopList.add(edgeMap.get(loopEdge).precedingReverseEdge);
                     if (loopList.get(0).source == loopList.get(loopList.size() - 1).destination)
@@ -164,7 +165,7 @@ public class EmbeddedGraph<E extends EmbeddedVertex> extends Graph<E> {
 //                    for (Edge loopEdge : loopList) buf += "" + (loopEdge.source.tag);
 //                    System.out.println(buf);
 
-                    Face face = new Face(loopList);
+                    Face<E> face = new Face<>(loopList);
                     result.add(face);
 
                     for (Edge loopEdge : loopList) {
@@ -182,12 +183,12 @@ public class EmbeddedGraph<E extends EmbeddedVertex> extends Graph<E> {
         }
 
         // find which of found faces are adjacent to each other
-        for (Face face : result) {
-            for (Edge edge : face.edgeList) {
+        for (Face<E> face : result) {
+            for (Edge<E> edge : face.edgeList) {
                 // 2 faces are adjacent if they have one or multiple common non-directional edge
-                List<Face> facesByEdge = edgeMap.get(edge).faces;
+                List<Face<E>> facesByEdge = edgeMap.get(edge).faces;
 
-                for (Face adjacentFace : facesByEdge) {
+                for (Face<E> adjacentFace : facesByEdge) {
                     if ((adjacentFace != face) && (!face.adjacentFaceList.contains(adjacentFace))) {
                         face.adjacentFaceList.add(adjacentFace);
                     }

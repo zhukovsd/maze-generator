@@ -3,18 +3,18 @@ package com.zhukovsd.graphs;
 import java.awt.*;
 
 /**
- * Representation of {@link Graph graph}, which can be painted on java.awt.Graphic2D object.
+ * Representation of {@link Graph graph}, which can be painted on java.awt.Graphics2D object.
  * @param <T> type of represented {@link Graph graph}
  * @param <U> type of {@link Vertex vertex} of represented {@link Graph graph}
  */
-public abstract class GraphView<T extends Graph<U>, U extends Vertex> {
+public abstract class GraphView<T extends Graph<U>, U extends Vertex<U>> {
     /**
      * {@link Graph Graph} object, represented by current view. Immutable.
      */
     private final T graph;
 
     /**
-     * Create graph representation of given {@link Graph graph}
+     * Create representation for given {@link Graph graph}.
      * @param graph graph to represent
      */
     public GraphView(T graph) {
@@ -57,9 +57,9 @@ public abstract class GraphView<T extends Graph<U>, U extends Vertex> {
      * @param graphics graphics object to paint on
      * @param edge {@link Edge edge} object to paint
      */
-    protected void paintEdge(Graphics2D graphics, Edge edge) {
-        Point sourcePosition = calculateVertexPosition((U) edge.destination);
-        Point destinationPosition = calculateVertexPosition((U) edge.source);
+    protected void paintEdge(Graphics2D graphics, Edge<U> edge) {
+        Point sourcePosition = calculateVertexPosition(edge.destination);
+        Point destinationPosition = calculateVertexPosition(edge.source);
 
         graphics.drawLine(sourcePosition.x, sourcePosition.y, destinationPosition.x, destinationPosition.y);
     }
@@ -77,14 +77,14 @@ public abstract class GraphView<T extends Graph<U>, U extends Vertex> {
         for (U vertex : graph.vertexList) {
             paintVertex(graphics, vertex);
 
-            for (Edge edge : vertex.edgeList) {
+            for (Edge<U> edge : vertex.edgeList) {
                 paintEdge(graphics, edge);
             }
         }
     }
 
     /**
-     * Paint whole view on given {@link Graphics2D graphics} object with black color and 1 pixel width stroke
+     * Paint whole view on given {@link Graphics2D graphics} object with black color and 1 pixel width stroke.
      * @param graphics graphics object to paint on
      */
     public void paint(Graphics2D graphics) {

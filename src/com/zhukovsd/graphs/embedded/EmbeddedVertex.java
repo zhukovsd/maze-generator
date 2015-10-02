@@ -6,23 +6,26 @@ import java.awt.geom.Point2D;
 
 /**
  * Abstract graph vertex, embedded to the coordinate space.
+ * @param <T> - self-referential type used as type parameter for {@link #edgeList}
  */
-public abstract class EmbeddedVertex extends Vertex {
+public abstract class EmbeddedVertex<T extends EmbeddedVertex<T>> extends Vertex<T> {
     /**
-     * Retrieve position for current vertex in the coordinate space
+     * Retrieve position for current vertex in the coordinate space.
      * @return vertex position as {@link Point2D.Double point} object
      */
-    protected abstract Point2D.Double getPosition();
+    public abstract Point2D.Double getPosition();
 
     /**
-     * Compare 2 vertexes positions relatively to <code>center</code> vertex position. If in current <i>vertex-right vertex</i> arc
-     * right vertex closer to current vertex in clockwise direction, return -1, if closer in counterclockwise direction,
-     * return 1, return 0 if equals
+     * Compare 2 vertexes positions relatively to <code>center</code> vertex position.
+     * Consider <i>current vertex-right vertex</i> arc with center in <code>center</code> vertex.
+     * If in this arc right vertex closer to current vertex in clockwise direction, return -1,
+     * if closer in counterclockwise direction, return 1, return 0 if equals.
+     * <a href="http://stackoverflow.com/questions/6989100/sort-points-in-clockwise-order">Algorithm source</a>.
      * @param center center node, current and right vertexes will be compares relatively to it
      * @param right right node to compare
      * @return comparison result
      */
-    public int compare(EmbeddedVertex center, EmbeddedVertex right) {
+    public int compare(T center, T right) {
         Point2D.Double a = getPosition();
         Point2D.Double b = right.getPosition();
         Point2D.Double c = center.getPosition();
@@ -34,4 +37,3 @@ public abstract class EmbeddedVertex extends Vertex {
         else return 0;
     }
 }
-
