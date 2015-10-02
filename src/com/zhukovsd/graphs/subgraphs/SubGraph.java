@@ -37,7 +37,7 @@ public class SubGraph<E extends Vertex> extends Graph<SubGraphVertex> {
     /**
      *
      */
-    public void findSpanningTree() {
+     void findSpanningTree() {
         Random rand = new Random();
         List<Vertex> list = new ArrayList<>();
 
