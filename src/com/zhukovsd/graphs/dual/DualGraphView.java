@@ -41,7 +41,7 @@ public class DualGraphView<T extends EmbeddedVertex> extends GraphView<DualGraph
      * @return vertex position as {@link Point} object
      */
     @Override
-    protected Point calculateVertexPosition(DualVertex vertex) {
+    public Point calculateVertexPosition(DualVertex vertex) {
         return outerView.calculateFaceCenter(vertex.face);
     }
 }
