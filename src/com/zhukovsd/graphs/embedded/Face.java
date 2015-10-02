@@ -1,6 +1,7 @@
 package com.zhukovsd.graphs.embedded;
 
 import com.zhukovsd.graphs.Edge;
+import com.zhukovsd.graphs.EdgeList;
 import com.zhukovsd.graphs.Vertex;
 
 import java.util.ArrayList;
@@ -35,6 +36,22 @@ public class Face {
         for (Edge edge : this.edgeList) {
             vertexList.add(((EmbeddedVertex) edge.source));
         }
+    }
+
+    public EdgeList findCommonEdges(Face face) {
+        EdgeList result = new EdgeList();
+
+        for (Edge edge1 : edgeList) {
+            for (Edge edge2 : face.edgeList) {
+                if (((edge1.source == edge2.source) && (edge1.destination == edge2.destination)) ||
+                        ((edge1.source == edge2.destination) && (edge1.destination == edge2.source))
+                ) {
+                    result.add(edge1);
+                }
+            }
+        }
+
+        return result;
     }
 
     /**
