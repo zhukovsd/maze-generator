@@ -32,6 +32,11 @@ public class RectangularGraphView extends EmbeddedGraphView<RectangularVertex> {
         );
     }
 
+    /**
+     * Abstract method for calculating vertex position in current view representation. Must be overrode in derived class.
+     * @param vertex vertex to calculate position of
+     * @return vertex position as {@link Point} object
+     */
     @Override
     public Point calculateVertexPosition(RectangularVertex vertex) {
         Point2D.Double position = vertex.getPosition();
