@@ -1,26 +1,20 @@
 package com.zhukovsd.graphs.embedded;
 
 import com.zhukovsd.graphs.Edge;
+
 import java.util.Comparator;
 
 /**
- * Comparator implementation for <code>Edge</code> class, sorts collections of <code>Edges</code> in counterclockwise order
+ * Comparator implementation for {@link Edge edge} objects, which connects {@link EmbeddedVertex embedded vertexes},
+ * used to sort collections of edges in counterclockwise order.
+ * @param <E> type parameter of edges to compare
  */
-class EdgeComparator implements Comparator<Edge> {
+class EdgeComparator<E extends EmbeddedVertex<E>> implements Comparator<Edge<E>> {
     /**
-     * Comparing 2 edges. Only edges of <code>EmbeddedVertex</code> class can be compared, return 0 otherwise.
-     * Method expects that edges have 1 common vertex.
+     * Compare 2 edges. Method expects that edges have 1 common vertex.
      */
     @Override
-    public int compare(Edge o1, Edge o2) {
-        if ((o1.source instanceof EmbeddedVertex) && (o2.source instanceof EmbeddedVertex)) {
-            // compare o1.dest and o2.dest relatively to o2.source
-            // even if not o1.dest vertex is common for both edges, result will be correct
-            return ((EmbeddedVertex) o1.destination).compare(
-                    ((EmbeddedVertex) o2.source), ((EmbeddedVertex) o2.destination)
-            );
-        }
-
-        return 0;
+    public int compare(Edge<E> o1, Edge<E> o2) {
+        return o1.destination.compare(o2.source, o2.destination);
     }
 }
