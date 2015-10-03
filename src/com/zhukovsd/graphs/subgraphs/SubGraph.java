@@ -8,18 +8,21 @@ import com.zhukovsd.graphs.Vertex;
 import java.util.*;
 
 /**
- * Created by ZhukovSD on 30.09.2015.
+ * Subgraph is a graph, where each {@link Vertex vertex} of it corresponds to particular vertex
+ * of {@link #parentGraph parent graph}. Vertexes of subgraph is a subset of vertexes of outer graph, as so for edges.
+ * @param <E> type of {@link Vertex vertex} in parent (not this!) graph.
  */
-public class SubGraph<E extends Vertex> extends Graph<SubGraphVertex> {
+public class SubGraph<E extends Vertex<E>> extends Graph<SubGraphVertex<E>> {
     Graph<E> parentGraph;
 
-    // map that consists of parent vertex - subgraph vertex pairs
-    HashMap<Vertex, SubGraphVertex> parentVertexesMap = new HashMap<>();
+    // map that consists of pairs of parent vertex and corresponding subgraph vertex.
+    HashMap<Vertex<E>, SubGraphVertex<E>> parentVertexesMap = new HashMap<>();
 
     /**
-     *
+     * Create empty subgraph for given parent {@link Graph graph}.
+     * @param parentGraph parent graph
      */
-    public SubGraph(Graph<E> parentGraph) {
+    SubGraph(Graph<E> parentGraph) {
         this.parentGraph = parentGraph;
     }
 
@@ -28,47 +31,51 @@ public class SubGraph<E extends Vertex> extends Graph<SubGraphVertex> {
      * @param vertex vertex to add
      */
     @Override
-    public void addVertex(SubGraphVertex vertex) {
+    public void addVertex(SubGraphVertex<E> vertex) {
         super.addVertex(vertex);
 
         parentVertexesMap.put(vertex.parentVertex, vertex);
     }
 
     /**
-     *
+     * Method disconnects 2 {@link SubGraphVertex subgraph vertexes} by removing corresponding {@link Edge edges}
+     * from both vertexes {@link Vertex#edgeList edgeLists}.
+     * @param leftParentVertex parent vertex for source of removed edge
+     * @param rightParentVertex parent vertex for destination of removed edge
      */
-    public void disconnectFromEachOtherByParents(Vertex leftParentNode, Vertex rightParentNode) {
-        disconnectFromEachOther(parentVertexesMap.get(leftParentNode), parentVertexesMap.get(rightParentNode));
+    public void disconnectFromEachOtherByParents(E leftParentVertex, E rightParentVertex) {
+        disconnectFromEachOther(parentVertexesMap.get(leftParentVertex), parentVertexesMap.get(rightParentVertex));
     }
 
     /**
-     *
+     * Fill current subgraph as spanning tree of parent graph. Method assumed that current graph is empty. Algorithm
+     * based on depth-first search.
      */
-     void findSpanningTree() {
+    public void findSpanningTree() {
         Random rand = new Random();
-        List<Vertex> list = new ArrayList<>();
+        List<Vertex<E>> list = new ArrayList<>();
 
         list.add(parentGraph.vertexList.get(0));
-        addVertex(new SubGraphVertex(parentGraph.vertexList.get(0)));
+        addVertex(new SubGraphVertex<>(parentGraph.vertexList.get(0)));
 
         while (list.size() > 0) {
-            Vertex vertex;
+            Vertex<E> vertex;
             if ((list.size() < 2) || (rand.nextInt(9) > 0))
                 vertex = list.get(list.size() - 1);
             else
                 vertex = list.get(list.size() - 2);
 
-            EdgeList edgeList = new EdgeList();
+            EdgeList<E> edgeList = new EdgeList<>();
             edgeList.addAll(vertex.edgeList);
 
             boolean isEdgeFound = false;
             while ((edgeList.size() > 0) && (!isEdgeFound)) {
-                Edge edge = edgeList.remove(rand.nextInt(edgeList.size()));
+                Edge<E> edge = edgeList.remove(rand.nextInt(edgeList.size()));
 
                 if (!parentVertexesMap.containsKey(edge.destination)) {
                     isEdgeFound = true;
 
-                    SubGraphVertex newVertex = new SubGraphVertex(edge.destination);
+                    SubGraphVertex<E> newVertex = new SubGraphVertex<>(edge.destination);
                     addVertex(newVertex);
 
                     connectToEachOther(parentVertexesMap.get(vertex), newVertex);
