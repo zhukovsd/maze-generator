@@ -3,12 +3,20 @@ package com.zhukovsd.graphs.subgraphs;
 import com.zhukovsd.graphs.Vertex;
 
 /**
- * Created by ZhukovSD on 30.09.2015.
+ * Vertex of subgraph. It corresponds to particular vertex of parent graph.
+ * @param <T> self-referential type used as type parameter for inner fields
  */
-public class SubGraphVertex extends Vertex {
-    public final Vertex parentVertex;
+public class SubGraphVertex<T extends Vertex<T>> extends Vertex<SubGraphVertex<T>> {
+    /**
+     * Vertex of outer graph, current sub graph vertex corresponds to this vertex.
+     */
+    public final T parentVertex;
 
-    public SubGraphVertex(Vertex parentVertex) {
+    /**
+     * Create sub graph vertex for given parent graph vertex.
+     * @param parentVertex parent graph vertex
+     */
+    public SubGraphVertex(T parentVertex) {
         this.parentVertex = parentVertex;
     }
 }
