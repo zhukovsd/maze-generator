@@ -23,6 +23,7 @@ public class DualGraph<E extends EmbeddedVertex<E>> extends Graph<DualVertex<E>>
     /**
      * Create and fill graph. Create {@link DualVertex vertex} for every outer {@link Face face} in outer graph,
      * create 2 directional {@link Edge edges} for every pair of adjacent faces in outer graph.
+     * @param outerGraph graph faces of which contains new dual graph's vertexes
      */
     public DualGraph(EmbeddedGraph<E> outerGraph) {
         this.outerGraph = outerGraph;
@@ -44,5 +45,19 @@ public class DualGraph<E extends EmbeddedVertex<E>> extends Graph<DualVertex<E>>
                 connect(map.get(face), map.get(adjacentFace));
             }
         }
+    }
+
+    /**
+     * Find {@link DualVertex vertex} by it's {@link Face face}
+     * @param face given face
+     * @return found vertex
+     */
+    public DualVertex<E> vertexByFace(Face<E> face) {
+        for (DualVertex<E> vertex : vertexList) {
+            if (vertex.face == face)
+                return vertex;
+        }
+
+        return null;
     }
 }
