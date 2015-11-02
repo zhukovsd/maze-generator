@@ -1,0 +1,67 @@
+<html>
+	<meta charset="utf-8">
+	<script src="webdemo\MazeManager.js"></script>
+	<script src="webdemo\MazeView.js"></script>
+	<script src="webdemo\FormMazeRequestData.js"></script>
+	<script type="text/javascript">
+		MazeGeometry = {
+			RECTANGULAR: 0,
+			CIRCULAR: 1
+		}	
+	
+		window.onload = function() {
+			MazeView.init();
+		}
+		
+		MazeManager.onStateChange = function() {
+			switch (MazeManager.state) {
+				case (MazeManagerState.LOADING): {
+					// alert("loading");
+					break;
+				}
+				case (MazeManagerState.LOADED): {
+					MazeView.setMazeData(MazeManager.mazeData);
+					MazeView.paint();
+					
+					break;
+				}
+			}
+		}
+	
+			// var requestData = {};
+			// requestData.geometry = MazeGeometry.RECTANGULAR;
+			// requestData.size = {width: 75, height: 75};
+			// requestData.views = [MazeGraphKind.RESULTING_GRAPH, MazeGraphKind.SHORTEST_PATH];
+		
+			// encodeURIComponent
+			// alert(encodeURIComponent(JSON.stringify(requestData)));
+		
+			//var canvas = document.getElementById("c");
+			//var ctx = canvas.getContext("2d");
+			
+			//var a = JSON.parse(httpGet("http://localhost:8085/Maze"));
+			// alert(a.mazes[0]);
+			
+			//var image = new Image();
+			//image.onload = function() {
+			//	if (canvas.width != image.width) canvas.width = image.width;
+			//	if (canvas.height != image.height) canvas.height = image.height;
+				//canvas.height = image.height;
+			
+			//	ctx.drawImage(image, 0, 0);
+			//};
+			//image.src = "data:image/png;base64," + a.mazes[0];		
+	</script>
+	<body>
+		<input value="Request" onclick="MazeManager.requestMaze(FormMazeRequestData.getRequestData());" type="button"/>
+		<input value="Show/hide path" onclick="MazeView.setVisibleByKind(MazeGraphKind.SHORTEST_PATH, !(MazeView.getVisibleByKind(MazeGraphKind.SHORTEST_PATH)));" type="button"/>
+		<select id="mazegeometryselect">
+			<option value="volvo">Rectangular</option>
+			<option value="saab">Circular</option>
+		</select>
+		<input id="rowcountedit" value="30" type="number" style="width:50px"/>
+		<input id="columncountedit" value="30" type="number" style="width:50px"/>
+		<input id="circlecountedit" value="20" type="number" style="width:50px"/>
+		<canvas id="mazecanvas" width="500px" height="500px"></canvas>
+	</body>
+<html>
