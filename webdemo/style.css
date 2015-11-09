@@ -1,0 +1,110 @@
+body {
+	text-align: center;
+}
+#mazecanvascontainer {
+	width: 100%;
+	height: 0px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	margin-top: 19px;
+}
+#mazecanvas {
+	display: block;
+	width: 400px;
+	height: 100%;
+	margin-bottom: 0px;
+	margin: auto;
+}
+#controlscontainer {
+	background: #DCDCDC;
+	width: 400px;
+	margin: auto;
+	border: 1px solid #A9A9A9;
+}
+.mazegeometryform {
+	background: #F3F3F3;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 10px;
+	overflow: hidden;
+	height: auto;
+}
+.specificform [hidden] {
+	display: none;
+}
+.formnumberinput {
+	width: 60px;
+	float: left;
+	clear: left;
+}
+#footer {
+	width: auto;
+	overflow: hidden;
+	display: inline-block;
+	margin: auto;
+	padding-top: 16px;
+}
+#footer a {
+    border-bottom: dashed 1px blue;
+    text-decoration: none;
+}
+.mazegeometrybutton {
+	background-color: #DCDCDC;
+	background-position: center;
+	background-repeat: no-repeat;
+	border: none;
+    /**border-right: 1px solid #ff0000;**/
+	height: 36px;
+}
+.mazegeometrybutton[geometry="0"] {
+	background-image: url(rect_icon.png);	
+}
+.mazegeometrybutton[geometry="1"] {
+	background-image: url(circ_icon.png);	
+}
+.mazegeometrybutton:hover {
+	background-color: #D3D3D3;
+	border: none;
+}
+.mazegeometrybutton:focus {
+	background-color: #C0C0C0;
+	outline: 0;
+}
+.mazegeometrybutton[active] {
+	background-color: #C0C0C0;	
+	box-shadow: inset 0px 0px 1px 1px #888;
+}
+#errorcontainer {
+	background-color: #FA8072;
+	background-image: url(error.png);
+	background-position: 10px;
+	background-repeat: no-repeat;	
+	background-size: 30px 30px;	
+	border-radius: 5px;
+	padding: 20px 20px 5px 5px;
+	padding-left: 48px;
+	margin: auto;	
+	margin-top: 25px;
+	width: auto;
+	height: 28px;
+	overflow: hidden;
+	display: table;
+}
+#errorcontainer[hidden] {
+	display: none;
+}
+#errorlabel {
+	display: table-cell;
+	vertical-align: middle;
+	padding-bottom: 10px;
+	font-size: 18px;
+}
+#preloader {
+	width: 16px;
+	height: 16px;
+	vertical-align: middle;
+	margin-left: 3px;
+}
+#preloader[hidden] {
+	display: none;
+}

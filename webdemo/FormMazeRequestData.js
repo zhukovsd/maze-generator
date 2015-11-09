@@ -1,16 +1,17 @@
 var FormMazeRequestData = new function() {
+	this.geometry = 0;
+
 	this.getRequestData = function() {
-		geometryIndex = document.getElementById("mazegeometryselect").selectedIndex;		
-		
 		var requestData = {};
-		requestData.geometry = geometryIndex;
-		requestData.views = [MazeGraphKind.RESULTING_GRAPH, MazeGraphKind.SHORTEST_PATH];				
+		requestData.geometry = this.geometry;
+		requestData.views = [MazeGraphKind.RESULTING_GRAPH, MazeGraphKind.SHORTEST_PATH];		
+		requestData.availableWidth = document.getElementById("mazecanvascontainer").clientWidth;
 		
 		requestData.size = {};
-		if (geometryIndex == 0) {
+		if (this.geometry == 0) {
 			requestData.size.rowCount = document.getElementById("rowcountedit").value;
 			requestData.size.columnCount = document.getElementById("columncountedit").value;
-		} else if (geometryIndex == 1) {
+		} else if (this.geometry == 1) {
 			requestData.size.circleCount = document.getElementById("circlecountedit").value;
 		}
 		

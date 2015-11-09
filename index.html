@@ -1,8 +1,10 @@
 <html>
 	<meta charset="utf-8">
-	<script src="webdemo\MazeManager.js"></script>
-	<script src="webdemo\MazeView.js"></script>
-	<script src="webdemo\FormMazeRequestData.js"></script>
+	<link href="webdemo/style.css" rel="stylesheet" type="text/css" />		
+	<script src="webdemo/MazeManager.js"></script>
+	<script src="webdemo/MazeView.js"></script>
+	<script src="webdemo/FormMazeRequestData.js"></script>
+	<script src="webdemo/canvas2image.js"></script>
 	<script type="text/javascript">
 		MazeGeometry = {
 			RECTANGULAR: 0,
@@ -11,57 +13,126 @@
 	
 		window.onload = function() {
 			MazeView.init();
+			
+			// set mazegeometry buttons events
+			var geometrybuttons = document.querySelectorAll(".mazegeometrybutton");
+			for (var i = 0; i < geometrybuttons.length; i++) {
+				geometrybuttons.item(i).onclick = function() {
+					// set active geometry value to form request data
+					FormMazeRequestData.geometry = this.getAttribute("geometry");
+					
+					// remove active attribute from previous active button
+					document.querySelector(".mazegeometrybutton[active]").removeAttribute("active");
+					// set active attribute to clicked button
+					this.setAttribute("active", "");
+
+					// show selected form and hide another ones
+					var mazeforms = document.querySelectorAll(".mazegeometryform");
+					for (var j = 0; j < mazeforms.length; j++) {
+						var mazeform = mazeforms.item(j);
+
+						if (this.getAttribute("geometry") == mazeform.getAttribute("geometry"))
+							mazeform.removeAttribute("hidden");
+						else
+							mazeform.setAttribute("hidden", "");
+					}
+				}
+			}
+			
+			// set save button event
+			document.getElementById("savebutton").onclick = function() {
+				var canvas = document.getElementById("mazecanvas");
+			
+				if ((canvas.width != 0) && (canvas.height != 0))
+					Canvas2Image.saveAsPNG(canvas, canvas.width, canvas.height);
+			}
+			
+			// request initial maze
+			MazeManager.requestMaze(FormMazeRequestData.getRequestData());
 		}
 		
 		MazeManager.onStateChange = function() {
+			var preloader = document.getElementById("preloader");
+			var errorContainer = document.getElementById("errorcontainer");
+			var errorLabel = document.getElementById("errorlabel");
+		
+			if (MazeManager.state == MazeManagerState.LOADING)
+				preloader.removeAttribute("hidden");
+			else
+				preloader.setAttribute("hidden", "");
+				
+			//
+		
 			switch (MazeManager.state) {
 				case (MazeManagerState.LOADING): {
-					// alert("loading");
 					break;
 				}
 				case (MazeManagerState.LOADED): {
+					errorContainer.setAttribute("hidden", "");
+				
 					MazeView.setMazeData(MazeManager.mazeData);
+					MazeView.setVisibleByKind(MazeGraphKind.SHORTEST_PATH, document.getElementById("showpathcheckbox").checked);
+
 					MazeView.paint();
 					
 					break;
 				}
+				case (MazeManagerState.NETWORK_ERROR): {
+					errorContainer.removeAttribute("hidden");
+					errorLabel.innerHTML = "Error during communication with the server";
+				}
+				case (MazeManagerState.SERVER_ERROR): {
+					errorContainer.removeAttribute("hidden");
+					errorLabel.innerHTML = MazeManager.mazeData.message;
+				}
 			}
 		}
-	
-			// var requestData = {};
-			// requestData.geometry = MazeGeometry.RECTANGULAR;
-			// requestData.size = {width: 75, height: 75};
-			// requestData.views = [MazeGraphKind.RESULTING_GRAPH, MazeGraphKind.SHORTEST_PATH];
-		
-			// encodeURIComponent
-			// alert(encodeURIComponent(JSON.stringify(requestData)));
-		
-			//var canvas = document.getElementById("c");
-			//var ctx = canvas.getContext("2d");
-			
-			//var a = JSON.parse(httpGet("http://localhost:8085/Maze"));
-			// alert(a.mazes[0]);
-			
-			//var image = new Image();
-			//image.onload = function() {
-			//	if (canvas.width != image.width) canvas.width = image.width;
-			//	if (canvas.height != image.height) canvas.height = image.height;
-				//canvas.height = image.height;
-			
-			//	ctx.drawImage(image, 0, 0);
-			//};
-			//image.src = "data:image/png;base64," + a.mazes[0];		
-	</script>
+	</script>	
 	<body>
-		<input value="Request" onclick="MazeManager.requestMaze(FormMazeRequestData.getRequestData());" type="button"/>
-		<input value="Show/hide path" onclick="MazeView.setVisibleByKind(MazeGraphKind.SHORTEST_PATH, !(MazeView.getVisibleByKind(MazeGraphKind.SHORTEST_PATH)));" type="button"/>
-		<select id="mazegeometryselect">
-			<option value="volvo">Rectangular</option>
-			<option value="saab">Circular</option>
-		</select>
-		<input id="rowcountedit" value="30" type="number" style="width:50px"/>
-		<input id="columncountedit" value="30" type="number" style="width:50px"/>
-		<input id="circlecountedit" value="20" type="number" style="width:50px"/>
-		<canvas id="mazecanvas" width="500px" height="500px"></canvas>
+		<h1 align="center">Online demo for maze-generator project</h1>
+	
+		<div id="controlscontainer">
+			<input id="button1" class="mazegeometrybutton" type="button" geometry="0" active style="float: left; width: 50%;"/>
+			<input id="button2" class="mazegeometrybutton" type="button" geometry=1 style="float: left; width: 50%;"/>
+			
+			<div id="rectangularmazeform" class="mazegeometryform" geometry=0>
+				<input id="rowcountedit" class="formnumberinput" value="30" type="number" min="3" max="300"/>
+				<div style="float: right; clear: right; text-align: right;">Row count, from 3 to 300</div>
+				
+				<hr/ style="float: left; clear: left; width: 100%;" noshade size="1px" color="A9A9A9">
+				
+				<input id="columncountedit" class="formnumberinput" value="30" type="number" min="3" max="300"/>
+				<div style="float: right; clear: right;">Column count, from 3 to 300</div>				
+			</div>
+			
+			<div id="circularmazeform" class="mazegeometryform" geometry=1 hidden>
+				<input id="circlecountedit" class="formnumberinput" value="20" type="number" style="width:50px"/>
+				<div style="float: right; clear: right;">Circle count, from 2 to 150</div>	
+			</div>
+			
+			<div style="margin: 6 10 6 10; text-align: left; vertical-align: middle;">
+				<input value="Request" onclick="MazeManager.requestMaze(FormMazeRequestData.getRequestData());" type="button"/>
+				<img id="preloader" src="webdemo/preloader.gif" hidden/>
+				<input id="savebutton" value="Save" type="button" style="float: right; margin-left: 12px;"/>				
+				<label for="showpathcheckbox" style="float: right; padding-top: 1px">Show path</label>
+				<input id="showpathcheckbox" type="checkbox" style="float: right; height: 18; width: 15; vertical-align: bottom; position: relative; top: -2px;" onchange="MazeView.setVisibleByKind(MazeGraphKind.SHORTEST_PATH, this.checked);">
+			</div>
+		</div>		
+		
+		<div id="errorcontainer" hidden>
+			<div id="errorlabel">
+				Incorrect maze parameters
+			</div>
+		</div>
+		
+		<div id="mazecanvascontainer">
+			<canvas id="mazecanvas"></canvas>
+		</div>
+		
+		<div id="footer">
+			<a href="https://github.com/zhukovsd/maze-generator/wiki/How-it-works-(ru)" style="margin-right: 25px">How it works?</a>
+			<a href="https://github.com/zhukovsd/maze-generator" style="margin-right: 25px">Sources</a>
+			<a href="https://vk.com/zhukovsd">Author</a>
+		</div>
 	</body>
 <html>
