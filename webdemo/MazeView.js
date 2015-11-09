@@ -3,12 +3,17 @@ MazeGraphKind = {
 }	
 
 var MazeView = new function() {
+	var canvasContainer;
 	var canvas = null;
 	var canvasContext = null;
+	
+	var width = 5;
+	var height = 0;
 	
 	var graphsData = new Array();	
 	
 	this.init = function() {
+		canvasContainer = document.getElementById("mazecanvascontainer");
 		canvas = document.getElementById("mazecanvas");
 		canvasContext = canvas.getContext("2d");	
 	}
@@ -23,6 +28,27 @@ var MazeView = new function() {
 		}
 	}
 	
+	function setSize(awidth, aheight) {
+		if ((width != awidth) || (height != aheight)) {
+			width = awidth;
+			height = aheight;
+			
+			canvasContainer.style.height = height + "px";
+			
+			canvas.style.width = width+"px";
+			canvas.style.height = (height)+"px";
+			
+			canvas.width = canvas.clientWidth;
+			canvas.height = canvas.clientHeight;
+
+			// if scrollbar is visible, then canvasContainer height = canvas height + scrollbar height
+			if (canvasContainer.scrollHeight > canvasContainer.clientHeight)
+				canvasContainer.style.height = (height + (canvasContainer.scrollHeight - canvasContainer.clientHeight)) + "px";
+			else
+				canvasContainer.style.height = height + "px";		
+		}
+	}
+	
 	this.paint = function() {
 		canvasContext.clearRect(0, 0, canvas.width, canvas.height);
 		
@@ -34,8 +60,9 @@ var MazeView = new function() {
 					graph.image = new Image();
 					
 					graph.image.onload = function() {
-						if (canvas.width != graph.image.width) canvas.width = graph.image.width;
-						if (canvas.height != graph.image.height) canvas.height = graph.image.height;
+						setSize(graph.image.width, graph.image.height);
+						// if (canvas.width != graph.image.width) canvas.width = graph.image.width;
+						// if (canvas.height != graph.image.height) canvas.height = graph.image.height;
   			
 						canvasContext.drawImage(this, 0, 0);
 					};

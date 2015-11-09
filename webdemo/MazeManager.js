@@ -3,7 +3,7 @@ MazeManagerState = {
 	LOADING: 1,
 	LOADED: 2,
 	NETWORK_ERROR: 3,
-	INCORRECT_RESPONSE_ERROR: 4
+	SERVER_ERROR: 4
 }	
 
 var MazeManager = new function() {
@@ -47,7 +47,11 @@ var MazeManager = new function() {
 	this.onRequestResult = function(response) {
 		try {			
 			this.mazeData = JSON.parse(response);
-			this.setState(MazeManagerState.LOADED);
+			
+			if (this.mazeData.status == 0)
+				this.setState(MazeManagerState.LOADED);
+			else 
+				this.setState(MazeManagerState.SERVER_ERROR);
 		} catch (exception) {
 			this.setState(MazeManagerState.INCORRECT_RESPONSE_ERROR);
 		}
