@@ -37,6 +37,40 @@ body {
 	float: left;
 	clear: left;
 }
+.formvaluedescription {
+	float: right;
+	clear: right;
+}
+.formhr {
+	float: left;
+	clear: left;
+	width: 100%;
+	color: #A9A9A9;
+	background-color: #A9A9A9;
+	border: none;
+	height: 1px;
+}
+#controlbuttonscontainer {
+	margin: 6 10 6 10;
+	text-align: left;
+	vertical-align: middle;
+}
+#savebutton {
+	float: right;
+	margin-left: 12px;	
+}
+#showpathcheckboxlabel {
+	float: right;
+	padding-top: 1px;
+}
+#showpathcheckbox {
+	float: right;
+	height: 18;
+	width: 15;
+	vertical-align: bottom;
+	position: relative;
+	top: -2px;	
+}		
 #footer {
 	width: auto;
 	overflow: hidden;
@@ -53,8 +87,9 @@ body {
 	background-position: center;
 	background-repeat: no-repeat;
 	border: none;
-    /**border-right: 1px solid #ff0000;**/
 	height: 36px;
+	float: left;
+	width: 50%;
 }
 .mazegeometrybutton[geometry="0"] {
 	background-image: url(rect_icon.png);	

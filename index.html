@@ -92,30 +92,30 @@
 		<h1 align="center">Online demo for maze-generator project</h1>
 	
 		<div id="controlscontainer">
-			<input id="button1" class="mazegeometrybutton" type="button" geometry="0" active style="float: left; width: 50%;"/>
-			<input id="button2" class="mazegeometrybutton" type="button" geometry=1 style="float: left; width: 50%;"/>
+			<input class="mazegeometrybutton" type="button" geometry="0" active/>
+			<input class="mazegeometrybutton" type="button" geometry="1"/>
 			
 			<div id="rectangularmazeform" class="mazegeometryform" geometry=0>
 				<input id="rowcountedit" class="formnumberinput" value="30" type="number" min="3" max="300"/>
-				<div style="float: right; clear: right; text-align: right;">Row count, from 3 to 300</div>
+				<div class="formvaluedescription">Row count, from 3 to 300</div>
 				
-				<hr/ style="float: left; clear: left; width: 100%;" noshade size="1px" color="A9A9A9">
+				<hr/ class="formhr">
 				
 				<input id="columncountedit" class="formnumberinput" value="30" type="number" min="3" max="300"/>
-				<div style="float: right; clear: right;">Column count, from 3 to 300</div>				
+				<div class="formvaluedescription">Column count, from 3 to 300</div>				
 			</div>
 			
 			<div id="circularmazeform" class="mazegeometryform" geometry=1 hidden>
-				<input id="circlecountedit" class="formnumberinput" value="20" type="number" style="width:50px"/>
-				<div style="float: right; clear: right;">Circle count, from 2 to 150</div>	
+				<input id="circlecountedit" class="formnumberinput" value="20" type="number" min="2" max="150"/>
+				<div class="formvaluedescription">Circle count, from 2 to 150</div>	
 			</div>
 			
-			<div style="margin: 6 10 6 10; text-align: left; vertical-align: middle;">
+			<div id="controlbuttonscontainer">
 				<input value="Request" onclick="MazeManager.requestMaze(FormMazeRequestData.getRequestData());" type="button"/>
 				<img id="preloader" src="webdemo/preloader.gif" hidden/>
-				<input id="savebutton" value="Save" type="button" style="float: right; margin-left: 12px;"/>				
-				<label for="showpathcheckbox" style="float: right; padding-top: 1px">Show path</label>
-				<input id="showpathcheckbox" type="checkbox" style="float: right; height: 18; width: 15; vertical-align: bottom; position: relative; top: -2px;" onchange="MazeView.setVisibleByKind(MazeGraphKind.SHORTEST_PATH, this.checked);">
+				<input id="savebutton" value="Save" type="button"/>				
+				<label id="showpathcheckboxlabel" for="showpathcheckbox">Show path</label>
+				<input id="showpathcheckbox" type="checkbox" onchange="MazeView.setVisibleByKind(MazeGraphKind.SHORTEST_PATH, this.checked);">
 			</div>
 		</div>		
 		
