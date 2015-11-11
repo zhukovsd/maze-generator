@@ -5,6 +5,7 @@ import com.zhukovsd.graphs.Graph;
 import com.zhukovsd.graphs.Vertex;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Factory useful for instantiating specific {@link SubGraph subgraphs} such as spanning tree.
@@ -58,7 +59,7 @@ public class SubGraphFactory {
 
         for (T vertex : parentGraph.vertexList) {
             for (Edge<T> edge : vertex.edgeList) {
-                result.connect(result.parentVertexesMap.get(edge.source), result.parentVertexesMap.get(edge.destination));
+                result.connectToEachOther(result.parentVertexesMap.get(edge.source), result.parentVertexesMap.get(edge.destination));
             }
         }
 
