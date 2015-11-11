@@ -21,6 +21,35 @@ public class Edge<T extends Vertex<T>> {
     }
 
     /**
+     * Due to using Edge objects as hashmap keys, override equals() method. Edges which connects same {@link Vertex}
+     * treats as equal.
+     * @param o object for comparison with current edge
+     * @return comparison result
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Edge<?> edge = (Edge<?>) o;
+
+        if (!source.equals(edge.source)) return false;
+        return destination.equals(edge.destination);
+    }
+
+    /**
+     * Due to using Edge objects as hashmap keys, override hashCode() method. Edges which connects same {@link Vertex}
+     * has the same hash code.
+     * @return hash code
+     */
+    @Override
+    public int hashCode() {
+        int result = source.hashCode();
+        result = 31 * result + destination.hashCode();
+        return result;
+    }
+
+    /**
      * Get string representation for current edge. If all it's {@link Vertex vertexes} has tags,
      * result is concatenation of all their tags.
      * @return string representation for current edge

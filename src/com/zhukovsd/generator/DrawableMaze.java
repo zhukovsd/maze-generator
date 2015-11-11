@@ -5,9 +5,9 @@ import java.util.EnumSet;
 import java.util.HashMap;
 
 /**
- * General maze generator which may be drawn.
+ * General maze which may be drawn.
  */
-public abstract class DrawableMazeGenerator {
+public abstract class DrawableMaze {
     /**
      * Options for painting maze, list of colors and strokes for each graph of the maze.
      */
@@ -52,7 +52,7 @@ public abstract class DrawableMazeGenerator {
          * @param key given graph kind
          * @return found graphic options
          */
-        public GraphPaintOptions get(Object key) {
+        public GraphPaintOptions get(MazeGraphKind key) {
             return graphPaintOptionsMap.get(key);
         }
     }
