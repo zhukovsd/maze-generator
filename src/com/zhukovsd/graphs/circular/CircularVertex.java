@@ -8,8 +8,21 @@ import java.awt.geom.Point2D;
  *  Vertex of graph in form of circular lattice, which position described by polar coordinates.
  */
 public class CircularVertex extends EmbeddedVertex<CircularVertex> {
-    public double r, q;
+    /**
+     * Polar coordinate of current vertex, describing its distance from center.
+     */
+    public double r;
 
+    /**
+     * Polar coordinate of current vertex, describing its angle from reference direction.
+     */
+    public double q;
+
+    /**
+     * Create circular vertex with given polar coordinates.
+     * @param r {@link #r}
+     * @param q {@link #q}
+     */
     public CircularVertex(double r, double q) {
         this.r = r;
         this.q = q;
