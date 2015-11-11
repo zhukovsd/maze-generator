@@ -18,6 +18,13 @@ public abstract class EmbeddedGraphView<T extends EmbeddedVertex<T>> extends Gra
     }
 
     /**
+     * Abstract method for adjusting current view width by changing its size parameters such as interval between
+     * the vertexes.
+     * @param availableWidth width to adjust to
+     */
+    public abstract void adjustSizeByWidth(int availableWidth);
+
+    /**
      * Calculate center point for given face in coordinates of current representation.
      * @param face given face
      * @return {@link Point point} of face center
