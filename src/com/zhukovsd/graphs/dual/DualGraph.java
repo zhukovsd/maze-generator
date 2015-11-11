@@ -42,7 +42,7 @@ public class DualGraph<E extends EmbeddedVertex<E>> extends Graph<DualVertex<E>>
         // second, connect them
         for (Face<E> face : outerGraph.getFaces()) {
             for (Face<E> adjacentFace : face.adjacentFaceList) {
-                connect(map.get(face), map.get(adjacentFace));
+                connectToEachOther(map.get(face), map.get(adjacentFace));
             }
         }
     }
