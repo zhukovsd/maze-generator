@@ -56,29 +56,9 @@ public class EmbeddedGraph<E extends EmbeddedVertex<E>> extends Graph<E> {
     private List<Face<E>> faceList;
 
     /**
-     * Map that consists of reverse {@link Edge} edges pairs. Used for fast access to reverse edge for given edge.
-     */
-    private HashMap<Edge<E>, Edge<E>> reverseEdgesMap = new HashMap<>();
-
-    /**
      * Map, that stores additional data for every edge in edgeList, what is necessary for faces finding algorithm.
      */
     HashMap<Edge<E>, EdgeData> edgeMap = new HashMap<>();
-
-    /**
-     * Method connects 2 {@link Vertex vertexes} by creating 2 directional {@link Edge edges}.
-     * Method assumes that given vertexes belongs to current graph.
-     * @param left first vertex to connect
-     * @param right second vertex to connect
-     */
-    @Override
-    public void connectToEachOther(E left, E right) {
-        Edge<E> leftEdge = connect(left, right);
-        Edge<E> rightEdge = connect(right, left);
-
-        reverseEdgesMap.put(leftEdge, rightEdge);
-        reverseEdgesMap.put(rightEdge, leftEdge);
-    }
 
     /**
      * Lazy initialize of get list of current embedded graph's face list.
