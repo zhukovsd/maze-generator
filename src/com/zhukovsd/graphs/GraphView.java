@@ -1,6 +1,7 @@
 package com.zhukovsd.graphs;
 
 import java.awt.*;
+import java.util.HashSet;
 
 /**
  * Representation of {@link Graph graph}, which can be painted on java.awt.Graphics2D object.
@@ -66,6 +67,7 @@ public abstract class GraphView<T extends Graph<U>, U extends Vertex<U>> {
 
     /**
      * Paint whole view on given {@link Graphics2D graphics} object with given color and stroke.
+     * In pair of opposite-directional edges, which connects same vertexes, only one edge will be painted.
      * @param graphics graphics object to paint on
      * @param color color which will be used for painting
      * @param stroke stroke which will be used for painting
@@ -74,11 +76,21 @@ public abstract class GraphView<T extends Graph<U>, U extends Vertex<U>> {
         graphics.setColor(color);
         graphics.setStroke(stroke);
 
+        // set of painted edges
+        HashSet<Edge<U>> paintedEdges = new HashSet<>();
+
         for (U vertex : graph.vertexList) {
             paintVertex(graphics, vertex);
 
             for (Edge<U> edge : vertex.edgeList) {
-                paintEdge(graphics, edge);
+                // check if edge are already painted
+                if (!paintedEdges.contains(edge)) {
+                    paintEdge(graphics, edge);
+
+                    // remember painted edge and it's opposite edge
+                    paintedEdges.add(edge);
+                    paintedEdges.add(graph.reverseEdgesMap.get(edge));
+                }
             }
         }
     }
