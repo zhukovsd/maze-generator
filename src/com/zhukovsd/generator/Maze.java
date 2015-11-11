@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 
 /**
- * Actual maze generator implementation, parametrized with vertex type.
+ * Actual maze implementation, parametrized with vertex type.
  * @param <T> type of vertex which forms initial graph of current maze generator
  */
-public class MazeGenerator<T extends EmbeddedVertex<T>> extends DrawableMazeGenerator {
+public class Maze<T extends EmbeddedVertex<T>> extends DrawableMaze {
     /**
      * Options of maze generation.
      */
@@ -80,7 +80,7 @@ public class MazeGenerator<T extends EmbeddedVertex<T>> extends DrawableMazeGene
     SubGraph<T> resultingGraph;
 
     /**
-     * {@link com.zhukovsd.graphs.GraphView View} of {@link #resultingView}.
+     * {@link com.zhukovsd.graphs.GraphView View} of {@link #resultingGraph}.
      */
     SubGraphView<T, EmbeddedGraph<T>, EmbeddedGraphView<T>> resultingView;
 
@@ -99,7 +99,7 @@ public class MazeGenerator<T extends EmbeddedVertex<T>> extends DrawableMazeGene
      * @param graph initial walls graph
      * @param graphView graph view of initial graph
      */
-    MazeGenerator(EmbeddedGraph<T> graph, EmbeddedGraphView<T> graphView) {
+    Maze(EmbeddedGraph<T> graph, EmbeddedGraphView<T> graphView) {
         this.graph = graph;
         this.graphView = graphView;
 
@@ -128,7 +128,7 @@ public class MazeGenerator<T extends EmbeddedVertex<T>> extends DrawableMazeGene
     public void paint(Graphics2D graphics, EnumSet<MazeGraphKind> graphs) {
         for (MazeGraphKind graphKind : MazeGraphKind.values()) {
             if (graphs.contains(graphKind)) {
-                DrawableMazeGenerator.MazePaintOptions.GraphPaintOptions options = mazePaintOptions.get(graphKind);
+                DrawableMaze.MazePaintOptions.GraphPaintOptions options = mazePaintOptions.get(graphKind);
 
                 switch (graphKind) {
                     case INITIAL_GRAPH:
