@@ -6,9 +6,21 @@ import com.zhukovsd.graphs.embedded.EmbeddedGraph;
  * Vertex of graph in form of rectangular lattice, which position described by row and column indexes in this lattice.
  */
 public class RectangularGraph extends EmbeddedGraph<RectangularVertex> {
+    /**
+     * Number of rows in current graph.
+     */
     public final int rowCount;
+
+    /**
+     * Number of columns in current graph.
+     */
     public final int columnCount;
 
+    /**
+     * Create new rectangular graph with given size.
+     * @param rowCount row count
+     * @param columnCount column count
+     */
     public RectangularGraph(int rowCount, int columnCount) {
         this.rowCount = rowCount;
         this.columnCount = columnCount;
