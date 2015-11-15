@@ -12,5 +12,10 @@ public enum MazeGeometry {
     /**
      * Circular maze, described by circles count of its initial lattice, consists of concentric circles and "spokes".
      */
-    CIRCULAR
+    CIRCULAR,
+
+    /**
+     *
+     */
+    HEXAHEDRAL
 }

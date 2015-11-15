@@ -1,6 +1,7 @@
 package com.zhukovsd.generator;
 
 import com.zhukovsd.graphs.circular.*;
+import com.zhukovsd.graphs.hexahedral.*;
 import com.zhukovsd.graphs.rectangular.*;
 
 /**
@@ -52,6 +53,20 @@ public class MazeFactory {
         Maze<CircularVertex> result = new Maze<>(graph, view);
         result.mazeGenerationOptions.pathTreeExcludedVertexes.add(result.dualGraph.vertexList.get(1));
 
+        return result;
+    }
+
+    /**
+     *
+     * @param rowCount
+     * @param columnCount
+     * @return
+     */
+    public static Maze<HexahedralVertex> createHexahedralMaze(int rowCount, int columnCount) {
+        HexahedralGraph graph = new HexahedralGraph(rowCount, columnCount);
+        HexahedralGraphView view = new HexahedralGraphView(graph);
+
+        Maze<HexahedralVertex> result = new Maze<>(graph, view);
         return result;
     }
 }
