@@ -44,14 +44,21 @@ public class MazeServlet extends HttpServlet {
 
             if (requestData.isSizeCorrect()) {
                 DrawableMaze maze;
+
+                // switch !
                 if (requestData.getGeometry() == MazeGeometry.RECTANGULAR)
                     maze = MazeFactory.createRectangularMaze(
                             requestData.size.rowCount, requestData.size.columnCount, 10, 20, requestData.availableWidth
                     );
-                else
+                else if (requestData.getGeometry() == MazeGeometry.CIRCULAR)
                     maze = MazeFactory.createCircularMaze(
                             requestData.size.circleCount, 1.5, 1.35, 10, 20, requestData.availableWidth
                     );
+                else {
+                    maze = MazeFactory.createHexahedralMaze(
+                            requestData.size.rowCount, requestData.size.columnCount
+                    );
+                }
 
                 maze.generate();
 

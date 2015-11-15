@@ -113,6 +113,7 @@ public class ServletRequest {
         if (size == null)
             return false;
 
+        // switch !
         if (getGeometry() == MazeGeometry.RECTANGULAR) {
             //noinspection RedundantIfStatement
             if ((size.rowCount < MIN_RECT_ROW_COUNT) || (size.rowCount > MAX_RECT_ROW_COUNT))
@@ -123,11 +124,13 @@ public class ServletRequest {
                 return false;
 
             return true;
-        } else {
+        } else if (getGeometry() == MazeGeometry.CIRCULAR) {
             //noinspection RedundantIfStatement
             if ((size.circleCount < MIN_CIRC_CIRCLE_COUNT) || (size.circleCount > MAX_CIRC_CIRCLE_COUNT))
                 return false;
 
+            return true;
+        } else {
             return true;
         }
     }
