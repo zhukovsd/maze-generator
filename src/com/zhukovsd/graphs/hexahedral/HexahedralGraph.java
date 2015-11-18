@@ -1,5 +1,6 @@
 package com.zhukovsd.graphs.hexahedral;
 
+import com.zhukovsd.graphs.Edge;
 import com.zhukovsd.graphs.embedded.EmbeddedGraph;
 
 /**
@@ -10,6 +11,18 @@ public class HexahedralGraph extends EmbeddedGraph<HexahedralVertex> {
     final int latticeColumnCount;
 
     public HexahedralGraph(int latticeRowCount, int latticeColumnCount) {
+        // column count can't be odd
+        if (latticeColumnCount % 2 != 0)
+            latticeColumnCount += 1;
+
+        // if column count if 4, then in case of even row count all vertexes of all row will have < 2 edges and therefore
+        // will be removed, which will cause last lattice row has no vertexes at all. To prevent this, decreate row count
+        // in advance
+        if (latticeColumnCount == 4) {
+            if (latticeRowCount % 2 == 0)
+                latticeRowCount -= 1;
+        }
+
         this.latticeRowCount = latticeRowCount;
         this.latticeColumnCount = latticeColumnCount;
 
@@ -20,21 +33,11 @@ public class HexahedralGraph extends EmbeddedGraph<HexahedralVertex> {
                 boolean isExists;
 
                 if (i % 2 == 0) {
-                    if (((j % 4) == 1) || ((j % 4) == 2)) {
-//                        if ((i == 0) && (j == 9))
-//                            isExists = false;
-//                        else if ((i == 9) && (j == 0))
-//                            isExists = false;
-//                        else
-                            isExists = true;
-                    }
-                    else
-                        isExists = false;
+                    // on rows with even indexes, vertexes exist on column indexes where (index % 4) == 1 or 2
+                    isExists = ((j % 4) == 1) || ((j % 4) == 2);
                 } else {
-                    if (((j % 4) == 0) || ((j % 4) == 3))
-                        isExists = true;
-                    else
-                        isExists = false;
+                    // on rows with odd indexes, vertexes exists on column indexes where (index % 4) == 0 or 3
+                    isExists = ((j % 4) == 0) || ((j % 4) == 3);
                 }
 
                 if (isExists) {
@@ -46,16 +49,10 @@ public class HexahedralGraph extends EmbeddedGraph<HexahedralVertex> {
             }
         }
 
-        vertexList.remove(lattice[0][latticeColumnCount - 1]);
-        lattice[0][latticeColumnCount - 1] = null;
-
-        vertexList.remove(lattice[latticeRowCount - 1][0]);
-        lattice[latticeRowCount -1][0] = null;
-
         for (int i = 0; i < latticeRowCount; i++) {
             for (int j = 0; j < latticeColumnCount; j++) {
                 HexahedralVertex vertex = lattice[i][j];
-                
+
                 if (vertex != null) {
                     // connect with right vertex
                     if (j < latticeColumnCount - 1) {
@@ -79,6 +76,21 @@ public class HexahedralGraph extends EmbeddedGraph<HexahedralVertex> {
                             connectToEachOther(vertex, neighbour);
                     }
                 }
+            }
+        }
+
+        // delete "floating" vertexes, which has less than 2 edges
+        for (int i = vertexList.size() - 1; i >= 0; i--) {
+            HexahedralVertex vertex = vertexList.get(i);
+
+            if (vertex.edgeList.size() < 2) {
+                for (int j = vertex.edgeList.size() - 1; j >= 0; j--) {
+                    Edge<HexahedralVertex> edge = vertex.edgeList.get(j);
+
+                    disconnectFromEachOther(vertex, edge.destination);
+                }
+
+                vertexList.remove(i);
             }
         }
     }
