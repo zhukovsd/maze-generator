@@ -15,7 +15,7 @@ public enum MazeGeometry {
     CIRCULAR,
 
     /**
-     *
+     * Hexahedral maze, described by row and column count of its initial hexahedral lattice.
      */
     HEXAHEDRAL
 }

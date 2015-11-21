@@ -14,15 +14,13 @@ public class MazeFactory {
      * @param columnCount column count
      * @param viewBorderIndent outer indent for view
      * @param viewVertexSpacing indent between vertexes in view
-     * @param availableWidth desired with for maze view
      * @return created maze
      */
     public static Maze<RectangularVertex> createRectangularMaze(
-            int rowCount, int columnCount, int viewBorderIndent, int viewVertexSpacing, int availableWidth
+            int rowCount, int columnCount, int viewBorderIndent, int viewVertexSpacing
     ) {
         RectangularGraph graph = new RectangularGraph(rowCount, columnCount);
         RectangularGraphView view = new RectangularGraphView(graph, viewBorderIndent, viewVertexSpacing);
-        view.adjustSizeByWidth(availableWidth);
 
         Maze<RectangularVertex> result = new Maze<>(graph, view);
 
@@ -39,16 +37,13 @@ public class MazeFactory {
      * @param chordFactor chord factor
      * @param viewBorderIndent outer intent for view
      * @param viewRadialInterval intent between circles in view
-     * @param availableWidth desired with for maze view
      * @return created maze
      */
     public static Maze<CircularVertex> createCircularMaze(
-            int circleCount, double centerFactor, double chordFactor, int viewBorderIndent, int viewRadialInterval,
-            int availableWidth
+            int circleCount, double centerFactor, double chordFactor, int viewBorderIndent, int viewRadialInterval
     ) {
         CircularGraph graph = new CircularGraph(circleCount, centerFactor, chordFactor);
         CircularGraphView view = new CircularGraphView(graph, viewBorderIndent, viewRadialInterval);
-        view.adjustSizeByWidth(availableWidth);
 
         Maze<CircularVertex> result = new Maze<>(graph, view);
         result.mazeGenerationOptions.pathTreeExcludedVertexes.add(result.dualGraph.vertexList.get(1));
@@ -57,16 +52,17 @@ public class MazeFactory {
     }
 
     /**
-     *
-     * @param rowCount
-     * @param columnCount
-     * @return
+     * Create hexahedral maze.
+     * @param rowCount row count of hexahedral maze lattice
+     * @param columnCount column count of hexahedral maze lattice
+     * @return created maze
      */
-    public static Maze<HexahedralVertex> createHexahedralMaze(int rowCount, int columnCount) {
+    public static Maze<HexahedralVertex> createHexahedralMaze(
+            int rowCount, int columnCount, int viewBorderIndent, int viewVertexSpacing
+    ) {
         HexahedralGraph graph = new HexahedralGraph(rowCount, columnCount);
-        HexahedralGraphView view = new HexahedralGraphView(graph);
+        HexahedralGraphView view = new HexahedralGraphView(graph, viewBorderIndent, viewVertexSpacing);
 
-        Maze<HexahedralVertex> result = new Maze<>(graph, view);
-        return result;
+        return new Maze<>(graph, view);
     }
 }
