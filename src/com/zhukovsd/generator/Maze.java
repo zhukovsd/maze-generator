@@ -155,6 +155,15 @@ public class Maze<T extends EmbeddedVertex<T>> extends DrawableMaze {
     }
 
     /**
+     * Method for adjusting size of graphic representation for current maze.
+     * @param availableWidth width to adjust to
+     */
+    @Override
+    public void adjustSizeByWidth(int availableWidth) {
+        graphView.adjustSizeByWidth(availableWidth);
+    }
+
+    /**
      * Actual maze generation. Find path, find shortest path, build resulting graph.
      */
     @Override

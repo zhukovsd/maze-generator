@@ -76,6 +76,12 @@ public abstract class DrawableMaze {
     public abstract void paint(Graphics2D graphics, EnumSet<MazeGraphKind> graphs);
 
     /**
+     * Abstract method for adjusting size of graphic representation for current maze.
+     * @param availableWidth width to adjust to
+     */
+    public abstract void adjustSizeByWidth(int availableWidth);
+
+    /**
      * Abstract method for actual maze generation.
      */
     public abstract void generate();
