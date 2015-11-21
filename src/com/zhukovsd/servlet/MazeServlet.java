@@ -28,8 +28,6 @@ public class MazeServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("req.getRemoteAddr() = " + req.getRemoteAddr());
-
         resp.setContentType("application/json");
         // allow cross-domain ajax request
         resp.setHeader("Access-Control-Allow-Origin", "*");
@@ -42,24 +40,26 @@ public class MazeServlet extends HttpServlet {
             // request "data" param is a json object, deserializable into ServletRequest object
             ServletRequest requestData = ServletRequest.createFromJSON(URLDecoder.decode(req.getParameter("data"), "UTF-8"));
 
+            System.out.println(req.getRemoteAddr() + ", " + URLDecoder.decode(req.getParameter("data"), "UTF-8"));
+
             if (requestData.isSizeCorrect()) {
                 DrawableMaze maze;
 
-                // switch !
-                if (requestData.getGeometry() == MazeGeometry.RECTANGULAR)
-                    maze = MazeFactory.createRectangularMaze(
-                            requestData.size.rowCount, requestData.size.columnCount, 10, 20, requestData.availableWidth
-                    );
-                else if (requestData.getGeometry() == MazeGeometry.CIRCULAR)
-                    maze = MazeFactory.createCircularMaze(
-                            requestData.size.circleCount, 1.5, 1.35, 10, 20, requestData.availableWidth
-                    );
-                else {
-                    maze = MazeFactory.createHexahedralMaze(
-                            requestData.size.rowCount, requestData.size.columnCount
-                    );
+                switch (requestData.getGeometry()) {
+                    case RECTANGULAR:
+                        maze = MazeFactory.createRectangularMaze(requestData.size.rowCount, requestData.size.columnCount, 10, 20);
+                        break;
+
+                    case CIRCULAR:
+                        maze = MazeFactory.createCircularMaze(requestData.size.circleCount, 1.5, 1.35, 10, 20);
+                        break;
+
+                    default:
+                        maze = MazeFactory.createHexahedralMaze(requestData.size.rowCount, requestData.size.columnCount, 10, 20);
+                        break;
                 }
 
+                maze.adjustSizeByWidth(requestData.availableWidth);
                 maze.generate();
 
                 Point size = maze.getSize();
