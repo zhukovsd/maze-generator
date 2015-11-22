@@ -1,6 +1,5 @@
 package com.zhukovsd.graphs.dual;
 
-import com.zhukovsd.graphs.Edge;
 import com.zhukovsd.graphs.GraphView;
 import com.zhukovsd.graphs.embedded.EmbeddedGraphView;
 import com.zhukovsd.graphs.embedded.EmbeddedVertex;
@@ -18,6 +17,7 @@ public class DualGraphView<T extends EmbeddedVertex<T>> extends GraphView<DualGr
     /**
      * Create graph representation of given {@link DualGraph dual graph}
      * @param graph graph to represent
+     * @param outerView outer view of any {@link EmbeddedGraphView embedded view}
      */
     public DualGraphView(DualGraph<T> graph, EmbeddedGraphView<T> outerView) {
         super(graph);
