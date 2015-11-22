@@ -19,7 +19,7 @@ public class Graph<E extends Vertex<E>> {
     /**
      * Map that consists of reverse {@link Edge} edges pairs. Used for fast access to reverse edge for given edge.
      */
-    public HashMap<Edge<E>, Edge<E>> reverseEdgesMap = new HashMap<>();
+    public final HashMap<Edge<E>, Edge<E>> reverseEdgesMap = new HashMap<>();
 
     /**
      * Method adds {@link Vertex vertex} to the current graph.
@@ -54,13 +54,15 @@ public class Graph<E extends Vertex<E>> {
      * @param left source of removed edge
      * @param right destination of removed edge
      */
-    private void disconnect(E left, E right) {
+    private Edge<E> disconnect(E left, E right) {
         for (Edge<E> edge : left.edgeList) {
             if (edge.destination == right) {
                 left.edgeList.remove(edge);
-                break;
+                return edge;
             }
         }
+
+        return null;
     }
 
     /**
@@ -70,11 +72,11 @@ public class Graph<E extends Vertex<E>> {
      * @param right destination of removed edge
      */
     public void disconnectFromEachOther(E left, E right) {
-        disconnect(left, right);
-        disconnect(right, left);
+        Edge<E> leftEdge = disconnect(left, right);
+        Edge<E> rightEdge = disconnect(right, left);
 
-        reverseEdgesMap.remove(left);
-        reverseEdgesMap.remove(right);
+        reverseEdgesMap.remove(leftEdge);
+        reverseEdgesMap.remove(rightEdge);
     }
 
     /**
