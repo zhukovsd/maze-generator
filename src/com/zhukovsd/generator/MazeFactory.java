@@ -55,6 +55,8 @@ public class MazeFactory {
      * Create hexahedral maze.
      * @param rowCount row count of hexahedral maze lattice
      * @param columnCount column count of hexahedral maze lattice
+     * @param viewBorderIndent outer indent for view
+     * @param viewVertexSpacing indent between vertexes in view
      * @return created maze
      */
     public static Maze<HexahedralVertex> createHexahedralMaze(
