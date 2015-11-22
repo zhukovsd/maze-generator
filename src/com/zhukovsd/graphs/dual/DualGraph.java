@@ -35,7 +35,7 @@ public class DualGraph<E extends EmbeddedVertex<E>> extends Graph<DualVertex<E>>
         for (Face<E> face : outerGraph.getFaces()) {
             DualVertex<E> vertex = new DualVertex<>(face);
 
-            vertexList.add(vertex);
+            addVertex(vertex);
             map.put(face, vertex);
         }
 

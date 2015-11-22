@@ -2,7 +2,6 @@ package com.zhukovsd.graphs.hexahedral;
 
 import com.zhukovsd.graphs.embedded.EmbeddedGraph;
 import com.zhukovsd.graphs.embedded.EmbeddedGraphView;
-import com.zhukovsd.graphs.rectangular.RectangularGraph;
 
 import java.awt.*;
 import static java.lang.Math.*;

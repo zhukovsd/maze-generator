@@ -41,8 +41,9 @@ public class EmbeddedGraph<E extends EmbeddedVertex<E>> extends Graph<E> {
         List<Face<E>> faces = new ArrayList<>();
 
         /**
-         * Initialize instance with pre-calculated preceding reverse edge.
+         * Initialize instance with pre-calculated preceding and succeeding reverse edges.
          * @param precedingReverseEdge pre-calculated preceding reverse edge
+         * @param succeedingReverseEdge pre-calculated succeeding reverse edge
          */
         public EdgeData(Edge<E> precedingReverseEdge, Edge<E> succeedingReverseEdge) {
             this.precedingReverseEdge = precedingReverseEdge;
@@ -74,6 +75,7 @@ public class EmbeddedGraph<E extends EmbeddedVertex<E>> extends Graph<E> {
      * Find loop of edges, which starts from given edge in given order.
      * @param firstEdge given order to start loop from
      * @param order bypass order
+     * @return found loop
      */
     private EdgeList<E> findLoop(Edge<E> firstEdge, BypassOrder order) {
         EdgeList<E> result = new EdgeList<>();
@@ -99,7 +101,8 @@ public class EmbeddedGraph<E extends EmbeddedVertex<E>> extends Graph<E> {
     }
 
     /**
-     *
+     * Find loop which bounds the entire graph.
+     * @return found perimeter loop
      */
     private EdgeList<E> findPerimeterLoop() {
         // choose vertex to start perimeter loop from. we may be assured that most top vertex included into it

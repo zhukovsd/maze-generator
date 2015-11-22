@@ -45,6 +45,7 @@ public class Face<E extends Vertex<E>> {
      * that is, if one face contains edge <b>AB</b> and another face contains edge <b>BA</b>, then edge <b>AB</b>
      * counts as common for this 2 faces.
      * @param face face to search common faces with
+     * @return list of common edges
      */
     public EdgeList<E> findCommonEdges(Face<E> face) {
         EdgeList<E> result = new EdgeList<>();
