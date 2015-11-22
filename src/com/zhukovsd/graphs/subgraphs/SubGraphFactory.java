@@ -5,7 +5,6 @@ import com.zhukovsd.graphs.Graph;
 import com.zhukovsd.graphs.Vertex;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 /**
  * Factory useful for instantiating specific {@link SubGraph subgraphs} such as spanning tree.
@@ -34,6 +33,7 @@ public class SubGraphFactory {
      * which contains all of it's {@link Vertex vertexes} without loops.
      * @param <T> type of vertex in parent graph
      * @param parentGraph parent graph
+     * @param excludedVertexes vertexes, which will be excluded from spanning tree generation process
      * @return resulting spanning tree
      */
     public static <T extends Vertex<T>> SubGraph<T> createSpanningTree(Graph<T> parentGraph, ArrayList<T> excludedVertexes) {
