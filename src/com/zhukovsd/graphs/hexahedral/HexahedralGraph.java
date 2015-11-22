@@ -4,7 +4,7 @@ import com.zhukovsd.graphs.Edge;
 import com.zhukovsd.graphs.embedded.EmbeddedGraph;
 
 /**
- * Created by ZhukovSD on 15.11.2015.
+ * Vertex of graph in form of hexahedral lattice, which position described by row and column indexes in this lattice.
  */
 public class HexahedralGraph extends EmbeddedGraph<HexahedralVertex> {
     final int latticeRowCount;
@@ -44,7 +44,7 @@ public class HexahedralGraph extends EmbeddedGraph<HexahedralVertex> {
                     HexahedralVertex vertex = new HexahedralVertex(i, j);
 
                     lattice[i][j] = vertex;
-                    vertexList.add(vertex);
+                    addVertex(vertex);
                 }
             }
         }
