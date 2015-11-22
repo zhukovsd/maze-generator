@@ -85,6 +85,6 @@ public class Graph<E extends Vertex<E>> {
      * @return check result
      */
     public boolean isConnected(E left, E right) {
-        return (reverseEdgesMap.containsKey(new Edge<E>(left, right)));
+        return (reverseEdgesMap.containsKey(new Edge<>(left, right)));
     }
 }
