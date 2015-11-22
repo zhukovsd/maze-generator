@@ -2,7 +2,6 @@ package com.zhukovsd.servlet;
 
 import com.zhukovsd.generator.DrawableMaze;
 import com.zhukovsd.generator.MazeFactory;
-import com.zhukovsd.generator.MazeGeometry;
 import com.zhukovsd.generator.MazeGraphKind;
 
 import javax.servlet.*;
@@ -23,8 +22,8 @@ public class MazeServlet extends HttpServlet {
      * response format described in {@link ServletResponse ServletResponse class}.
      * @param req request object
      * @param resp response object
-     * @throws ServletException
-     * @throws IOException
+     * @throws ServletException possible exception type to be raised
+     * @throws IOException possible exception type to be raised
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
