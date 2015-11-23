@@ -9,10 +9,13 @@ var FormMazeRequestData = new function() {
 		
 		requestData.size = {};
 		if (this.geometry == 0) {
-			requestData.size.rowCount = document.getElementById("rowcountedit").value;
-			requestData.size.columnCount = document.getElementById("columncountedit").value;
+			requestData.size.rowCount = document.getElementById("rectrowcountedit").value;
+			requestData.size.columnCount = document.getElementById("rectcolumncountedit").value;
 		} else if (this.geometry == 1) {
 			requestData.size.circleCount = document.getElementById("circlecountedit").value;
+		} else if (this.geometry == 2) {
+			requestData.size.rowCount = document.getElementById("hexrowcountedit").value;
+			requestData.size.columnCount = document.getElementById("hexcolumncountedit").value;			
 		}
 		
 		return requestData;

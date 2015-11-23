@@ -89,13 +89,17 @@ body {
 	border: none;
 	height: 36px;
 	float: left;
-	width: 50%;
+	width: 33%;
 }
 .mazegeometrybutton[geometry="0"] {
 	background-image: url(rect_icon.png);	
 }
 .mazegeometrybutton[geometry="1"] {
-	background-image: url(circ_icon.png);	
+	background-image: url(circ_icon.png);
+	width: 34%;	
+}
+.mazegeometrybutton[geometry="2"] {
+	background-image: url(hex_icon.png);
 }
 .mazegeometrybutton:hover {
 	background-color: #D3D3D3;

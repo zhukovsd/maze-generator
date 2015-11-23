@@ -38,9 +38,7 @@ var MazeManager = new function() {
 			}			
 		};
 		
-		// xhr.open("GET", "http://localhost:8085/Maze?data="+encodeURIComponent(JSON.stringify(requestData)), true);
-		xhr.open("GET", "http://93.100.179.76:8085/Maze?data="+encodeURIComponent(JSON.stringify(requestData)), true);
-		// xhr.open("GET", "http://192.168.1.101:8085/Maze?data="+encodeURIComponent(JSON.stringify(requestData)), true);
+		xhr.open("GET", "http://5.101.123.222:8080/Maze?data="+encodeURIComponent(JSON.stringify(requestData)), true);		
 		xhr.send(null);
 	}		
 	
