@@ -1,3 +1,10 @@
+com.zhukovsd
+com.zhukovsd.generator
 com.zhukovsd.graphs
+com.zhukovsd.graphs.circular
+com.zhukovsd.graphs.dual
 com.zhukovsd.graphs.embedded
+com.zhukovsd.graphs.hexahedral
 com.zhukovsd.graphs.rectangular
+com.zhukovsd.graphs.subgraphs
+com.zhukovsd.servlet
