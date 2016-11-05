@@ -1,6 +1,8 @@
 package com.zhukovsd.graphs;
 
-import java.awt.*;
+import com.zhukovsd.Point;
+
+//import java.awt.*;
 import java.util.HashSet;
 
 /**
@@ -43,63 +45,63 @@ public abstract class GraphView<T extends Graph<U>, U extends Vertex<U>> {
      */
     public abstract Point calculateVertexPosition(U vertex);
 
-    /**
-     * Paint given vertex on given {@link Graphics2D graphics} object.
-     * @param graphics graphics object to paint on
-     * @param vertex {@link Vertex vertex} object to paint
-     */
-    protected void paintVertex(Graphics2D graphics, U vertex) {
-        Point position = calculateVertexPosition(vertex);
-        graphics.drawLine(position.x, position.y, position.x, position.y);
-    }
+//    /**
+//     * Paint given vertex on given {@link Graphics2D graphics} object.
+//     * @param graphics graphics object to paint on
+//     * @param vertex {@link Vertex vertex} object to paint
+//     */
+//    protected void paintVertex(Graphics2D graphics, U vertex) {
+//        Point position = calculateVertexPosition(vertex);
+//        graphics.drawLine(position.x, position.y, position.x, position.y);
+//    }
 
-    /**
-     * Paint given link on given {@link Graphics2D graphics} object.
-     * @param graphics graphics object to paint on
-     * @param edge {@link Edge edge} object to paint
-     */
-    protected void paintEdge(Graphics2D graphics, Edge<U> edge) {
-        Point sourcePosition = calculateVertexPosition(edge.destination);
-        Point destinationPosition = calculateVertexPosition(edge.source);
+//    /**
+//     * Paint given link on given {@link Graphics2D graphics} object.
+//     * @param graphics graphics object to paint on
+//     * @param edge {@link Edge edge} object to paint
+//     */
+//    protected void paintEdge(Graphics2D graphics, Edge<U> edge) {
+//        Point sourcePosition = calculateVertexPosition(edge.destination);
+//        Point destinationPosition = calculateVertexPosition(edge.source);
+//
+//        graphics.drawLine(sourcePosition.x, sourcePosition.y, destinationPosition.x, destinationPosition.y);
+//    }
 
-        graphics.drawLine(sourcePosition.x, sourcePosition.y, destinationPosition.x, destinationPosition.y);
-    }
+//    /**
+//     * Paint whole view on given {@link Graphics2D graphics} object with given color and stroke.
+//     * In pair of opposite-directional edges, which connects same vertexes, only one edge will be painted.
+//     * @param graphics graphics object to paint on
+//     * @param color color which will be used for painting
+//     * @param stroke stroke which will be used for painting
+//     */
+//    public void paint(Graphics2D graphics, Color color, Stroke stroke) {
+//        graphics.setColor(color);
+//        graphics.setStroke(stroke);
+//
+//        // set of painted edges
+//        HashSet<Edge<U>> paintedEdges = new HashSet<>();
+//
+//        for (U vertex : graph.vertexList) {
+//            paintVertex(graphics, vertex);
+//
+//            for (Edge<U> edge : vertex.edgeList) {
+//                // check if edge are already painted
+//                if (!paintedEdges.contains(edge)) {
+//                    paintEdge(graphics, edge);
+//
+//                    // remember painted edge and it's opposite edge
+//                    paintedEdges.add(edge);
+//                    paintedEdges.add(graph.reverseEdgesMap.get(edge));
+//                }
+//            }
+//        }
+//    }
 
-    /**
-     * Paint whole view on given {@link Graphics2D graphics} object with given color and stroke.
-     * In pair of opposite-directional edges, which connects same vertexes, only one edge will be painted.
-     * @param graphics graphics object to paint on
-     * @param color color which will be used for painting
-     * @param stroke stroke which will be used for painting
-     */
-    public void paint(Graphics2D graphics, Color color, Stroke stroke) {
-        graphics.setColor(color);
-        graphics.setStroke(stroke);
-
-        // set of painted edges
-        HashSet<Edge<U>> paintedEdges = new HashSet<>();
-
-        for (U vertex : graph.vertexList) {
-            paintVertex(graphics, vertex);
-
-            for (Edge<U> edge : vertex.edgeList) {
-                // check if edge are already painted
-                if (!paintedEdges.contains(edge)) {
-                    paintEdge(graphics, edge);
-
-                    // remember painted edge and it's opposite edge
-                    paintedEdges.add(edge);
-                    paintedEdges.add(graph.reverseEdgesMap.get(edge));
-                }
-            }
-        }
-    }
-
-    /**
-     * Paint whole view on given {@link Graphics2D graphics} object with black color and 1 pixel width stroke.
-     * @param graphics graphics object to paint on
-     */
-    public void paint(Graphics2D graphics) {
-        paint(graphics, Color.BLACK, new BasicStroke(1));
-    }
+//    /**
+//     * Paint whole view on given {@link Graphics2D graphics} object with black color and 1 pixel width stroke.
+//     * @param graphics graphics object to paint on
+//     */
+//    public void paint(Graphics2D graphics) {
+//        paint(graphics, Color.BLACK, new BasicStroke(1));
+//    }
 }

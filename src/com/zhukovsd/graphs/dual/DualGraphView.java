@@ -1,10 +1,9 @@
 package com.zhukovsd.graphs.dual;
 
+import com.zhukovsd.Point;
 import com.zhukovsd.graphs.GraphView;
 import com.zhukovsd.graphs.embedded.EmbeddedGraphView;
 import com.zhukovsd.graphs.embedded.EmbeddedVertex;
-
-import java.awt.*;
 
 /**
  * Representation of {@link DualGraph dual graph}, which can be painted on java.awt.Graphic2D object.

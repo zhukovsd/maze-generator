@@ -1,10 +1,9 @@
 package com.zhukovsd.graphs.subgraphs;
 
+import com.zhukovsd.Point;
 import com.zhukovsd.graphs.Graph;
 import com.zhukovsd.graphs.GraphView;
 import com.zhukovsd.graphs.Vertex;
-
-import java.awt.*;
 
 /**
  * Representation of {@link SubGraph subgraph}, which can be painted on java.awt.Graphic2D object.

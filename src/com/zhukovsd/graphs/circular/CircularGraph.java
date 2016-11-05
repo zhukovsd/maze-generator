@@ -70,7 +70,7 @@ public class CircularGraph extends EmbeddedGraph<CircularVertex> {
         ArrayList<LinkedHashMap<Double, CircularVertex>> lattice = new ArrayList<>();
 
         for (int i = 0; i < circleCount; i++) {
-            lattice.add(new LinkedHashMap<>());
+            lattice.add(new LinkedHashMap<Double, CircularVertex>());
 
             int vertexCount = getVertexCountByCircle(i);
             for (int j = 0; j < vertexCount; j++) {

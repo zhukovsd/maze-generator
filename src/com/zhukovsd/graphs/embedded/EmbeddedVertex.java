@@ -1,8 +1,7 @@
 package com.zhukovsd.graphs.embedded;
 
+import com.zhukovsd.Point;
 import com.zhukovsd.graphs.*;
-
-import java.awt.geom.Point2D;
 
 /**
  * Abstract graph vertex, embedded to the coordinate space.
@@ -11,9 +10,9 @@ import java.awt.geom.Point2D;
 public abstract class EmbeddedVertex<T extends EmbeddedVertex<T>> extends Vertex<T> {
     /**
      * Retrieve position for current vertex in the coordinate space.
-     * @return vertex position as {@link Point2D.Double point} object
+     * @return vertex position as {@link Point point} object
      */
-    public abstract Point2D.Double getPosition();
+    public abstract Point getPosition();
 
     /**
      * Compare 2 vertexes positions relatively to <code>center</code> vertex position.
@@ -26,9 +25,9 @@ public abstract class EmbeddedVertex<T extends EmbeddedVertex<T>> extends Vertex
      * @return comparison result
      */
     public int compare(T center, T right) {
-        Point2D.Double a = getPosition();
-        Point2D.Double b = right.getPosition();
-        Point2D.Double c = center.getPosition();
+        Point a = getPosition();
+        Point b = right.getPosition();
+        Point c = center.getPosition();
 
         double r = (a.x - c.x) * (b.y - c.y) - (b.x - c.x) * (a.y - c.y);
 

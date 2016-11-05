@@ -1,8 +1,7 @@
 package com.zhukovsd.graphs.hexahedral;
 
+import com.zhukovsd.Point;
 import com.zhukovsd.graphs.embedded.EmbeddedVertex;
-
-import java.awt.geom.Point2D;
 
 /**
  * Vertex of graph in form of hexahedral lattice, which position described by row and column indexes in this lattice.
@@ -31,10 +30,10 @@ public class HexahedralVertex extends EmbeddedVertex<HexahedralVertex> {
     /**
      * Retrieve position for current vertex in the coordinate space. Position for hexahedral vertex set by it's
      * row and column indexes in hexahedral lattice.
-     * @return vertex position as {@link Point2D.Double point} object
+     * @return vertex position as {@link Point point} object
      */
     @Override
-    public Point2D.Double getPosition() {
-        return new Point2D.Double(latticeRowIndex, latticeColumnIndex);
+    public Point getPosition() {
+        return new Point(latticeRowIndex, latticeColumnIndex);
     }
 }

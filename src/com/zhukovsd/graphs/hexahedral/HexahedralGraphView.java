@@ -1,9 +1,9 @@
 package com.zhukovsd.graphs.hexahedral;
 
+import com.zhukovsd.Point;
 import com.zhukovsd.graphs.embedded.EmbeddedGraph;
 import com.zhukovsd.graphs.embedded.EmbeddedGraphView;
 
-import java.awt.*;
 import static java.lang.Math.*;
 
 /**

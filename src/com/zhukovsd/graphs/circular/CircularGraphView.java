@@ -1,10 +1,8 @@
 package com.zhukovsd.graphs.circular;
 
+import com.zhukovsd.Point;
 import com.zhukovsd.graphs.embedded.EmbeddedGraph;
 import com.zhukovsd.graphs.embedded.EmbeddedGraphView;
-
-import java.awt.*;
-import java.awt.geom.Point2D;
 
 /**
  * View of {@link CircularGraph graph} in form of circular lattice.
@@ -79,7 +77,7 @@ public class CircularGraphView extends EmbeddedGraphView<CircularVertex> {
      */
     @Override
     public Point calculateVertexPosition(CircularVertex vertex) {
-        Point2D.Double position = vertex.getPosition();
+        Point position = vertex.getPosition();
 
         return new Point(
                 getSize().x / 2 + (int) Math.round(position.x * radialInterval),

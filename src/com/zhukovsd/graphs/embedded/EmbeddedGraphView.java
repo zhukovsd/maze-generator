@@ -2,7 +2,7 @@ package com.zhukovsd.graphs.embedded;
 
 import com.zhukovsd.graphs.GraphView;
 
-import java.awt.Point;
+import com.zhukovsd.Point;
 
 /**
  * Representation of {@link EmbeddedGraph embedded graph}, which can be painted on java.awt.Graphics2D object.

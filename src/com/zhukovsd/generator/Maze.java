@@ -6,7 +6,7 @@ import com.zhukovsd.graphs.dual.*;
 import com.zhukovsd.graphs.embedded.*;
 import com.zhukovsd.graphs.subgraphs.*;
 
-import java.awt.*;
+//import java.awt.*;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.Random;
@@ -119,49 +119,49 @@ public class Maze<T extends EmbeddedVertex<T>> extends DrawableMaze {
         exitVertex = dualGraph.vertexList.get(dualGraph.vertexList.size() - 1);
     }
 
-    /**
-     * Calculate size of image necessary to paint current maze.
-     * @return image size as {@link Point} object
-     */
-    @Override
-    public Point getSize() {
-        return graphView.getSize();
-    }
+//    /**
+//     * Calculate size of image necessary to paint current maze.
+//     * @return image size as {@link Point} object
+//     */
+//    @Override
+//    public Point getSize() {
+//        return graphView.getSize();
+//    }
 
-    /**
-     * Paint given graph kinds on given {@link Graphics2D graphics}.
-     * @param graphics graphics options to paint on
-     * @param graphs set of kinds of graphs to be painted
-     */
-    @Override
-    public void paint(Graphics2D graphics, EnumSet<MazeGraphKind> graphs) {
-        for (MazeGraphKind graphKind : MazeGraphKind.values()) {
-            if (graphs.contains(graphKind)) {
-                DrawableMaze.MazePaintOptions.GraphPaintOptions options = mazePaintOptions.get(graphKind);
-
-                switch (graphKind) {
-                    case INITIAL_GRAPH:
-                        graphView.paint(graphics, options.color, options.stroke);
-                        break;
-
-                    case DUAL_GRAPH:
-                        dualView.paint(graphics, options.color, options.stroke);
-                        break;
-
-                    case PATH_SPANNING_TREE:
-                        pathView.paint(graphics, options.color, options.stroke);
-                        break;
-
-                    case SHORTEST_PATH:
-                        shortestPathView.paint(graphics, options.color, options.stroke);
-                        break;
-
-                    case RESULTING_GRAPH:
-                        resultingView.paint(graphics, options.color, options.stroke);
-                }
-            }
-        }
-    }
+//    /**
+//     * Paint given graph kinds on given {@link Graphics2D graphics}.
+//     * @param graphics graphics options to paint on
+//     * @param graphs set of kinds of graphs to be painted
+//     */
+//    @Override
+//    public void paint(Graphics2D graphics, EnumSet<MazeGraphKind> graphs) {
+//        for (MazeGraphKind graphKind : MazeGraphKind.values()) {
+//            if (graphs.contains(graphKind)) {
+//                DrawableMaze.MazePaintOptions.GraphPaintOptions options = mazePaintOptions.get(graphKind);
+//
+//                switch (graphKind) {
+//                    case INITIAL_GRAPH:
+//                        graphView.paint(graphics, options.color, options.stroke);
+//                        break;
+//
+//                    case DUAL_GRAPH:
+//                        dualView.paint(graphics, options.color, options.stroke);
+//                        break;
+//
+//                    case PATH_SPANNING_TREE:
+//                        pathView.paint(graphics, options.color, options.stroke);
+//                        break;
+//
+//                    case SHORTEST_PATH:
+//                        shortestPathView.paint(graphics, options.color, options.stroke);
+//                        break;
+//
+//                    case RESULTING_GRAPH:
+//                        resultingView.paint(graphics, options.color, options.stroke);
+//                }
+//            }
+//        }
+//    }
 
     /**
      * Method for adjusting size of graphic representation for current maze.

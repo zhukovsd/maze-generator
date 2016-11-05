@@ -1,10 +1,8 @@
 package com.zhukovsd.graphs.rectangular;
 
+import com.zhukovsd.Point;
 import com.zhukovsd.graphs.embedded.EmbeddedGraph;
 import com.zhukovsd.graphs.embedded.EmbeddedGraphView;
-
-import java.awt.*;
-import java.awt.geom.Point2D;
 
 /**
  * View of graph in form of rectangular lattice.
@@ -79,7 +77,7 @@ public class RectangularGraphView extends EmbeddedGraphView<RectangularVertex> {
      */
     @Override
     public Point calculateVertexPosition(RectangularVertex vertex) {
-        Point2D.Double position = vertex.getPosition();
+        Point position = vertex.getPosition();
 
         return new Point(
                 indent + (int) Math.round(position.x * vertexInterval), indent + (int) Math.round(position.y * vertexInterval)

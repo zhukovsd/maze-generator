@@ -1,6 +1,6 @@
 package com.zhukovsd.generator;
 
-import java.awt.*;
+//import java.awt.*;
 import java.util.EnumSet;
 import java.util.HashMap;
 
@@ -19,17 +19,17 @@ public abstract class DrawableMaze {
             /**
              * Color for painting corresponding graph.
              */
-            Color color;
+//            Color color;
 
             /**
              * Stroke for painting corresponding graph.
              */
-            BasicStroke stroke;
+//            BasicStroke stroke;
 
-            public GraphPaintOptions(Color color, BasicStroke stroke) {
-                this.color = color;
-                this.stroke = stroke;
-            }
+//            public GraphPaintOptions(Color color, BasicStroke stroke) {
+//                this.color = color;
+//                this.stroke = stroke;
+//            }
         }
 
         /**
@@ -39,12 +39,12 @@ public abstract class DrawableMaze {
 
         {
             // initialize default paint options for all graphs
-            graphPaintOptionsMap.put(MazeGraphKind.INITIAL_GRAPH, new GraphPaintOptions(Color.BLACK, new BasicStroke(1)));
-            graphPaintOptionsMap.put(MazeGraphKind.DUAL_GRAPH, new GraphPaintOptions(Color.RED,
-                    new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{1, 3}, 0)));
-            graphPaintOptionsMap.put(MazeGraphKind.PATH_SPANNING_TREE, new GraphPaintOptions(Color.BLUE, new BasicStroke(1)));
-            graphPaintOptionsMap.put(MazeGraphKind.SHORTEST_PATH, new GraphPaintOptions(new Color(0, 200, 0), new BasicStroke(1)));
-            graphPaintOptionsMap.put(MazeGraphKind.RESULTING_GRAPH, new GraphPaintOptions(Color.BLACK, new BasicStroke(1)));
+//            graphPaintOptionsMap.put(MazeGraphKind.INITIAL_GRAPH, new GraphPaintOptions(Color.BLACK, new BasicStroke(1)));
+//            graphPaintOptionsMap.put(MazeGraphKind.DUAL_GRAPH, new GraphPaintOptions(Color.RED,
+//                    new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{1, 3}, 0)));
+//            graphPaintOptionsMap.put(MazeGraphKind.PATH_SPANNING_TREE, new GraphPaintOptions(Color.BLUE, new BasicStroke(1)));
+//            graphPaintOptionsMap.put(MazeGraphKind.SHORTEST_PATH, new GraphPaintOptions(new Color(0, 200, 0), new BasicStroke(1)));
+//            graphPaintOptionsMap.put(MazeGraphKind.RESULTING_GRAPH, new GraphPaintOptions(Color.BLACK, new BasicStroke(1)));
         }
 
         /**
@@ -66,14 +66,14 @@ public abstract class DrawableMaze {
      * Size of graphic representation of current maze.
      * @return size
      */
-    public abstract Point getSize();
+//    public abstract Point getSize();
 
     /**
      * Abstract method for maze painting.
      * @param graphics graphics options to paint on
      * @param graphs set of kinds of graphs to be painted
      */
-    public abstract void paint(Graphics2D graphics, EnumSet<MazeGraphKind> graphs);
+//    public abstract void paint(Graphics2D graphics, EnumSet<MazeGraphKind> graphs);
 
     /**
      * Abstract method for adjusting size of graphic representation for current maze.
