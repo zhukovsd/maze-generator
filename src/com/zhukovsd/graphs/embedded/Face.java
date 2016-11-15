@@ -1,5 +1,6 @@
 package com.zhukovsd.graphs.embedded;
 
+import com.zhukovsd.Point;
 import com.zhukovsd.graphs.Edge;
 import com.zhukovsd.graphs.EdgeList;
 import com.zhukovsd.graphs.Vertex;
@@ -11,7 +12,7 @@ import java.util.List;
  * Face is the part of the plain, on which {@link EmbeddedGraph embedded graph} is placed, bounded by edges.
  * @param <E> type of {@link Vertex vertexes} of embedded graph, which vertexes and edges forms face
  */
-public class Face<E extends Vertex<E>> {
+public class Face<E extends EmbeddedVertex<E>> {
     /**
      * Edges, which bounds current face.
      */
@@ -61,6 +62,23 @@ public class Face<E extends Vertex<E>> {
         }
 
         return result;
+    }
+
+    public Point calculateCenterPosition() {
+        Point faceCenter = new Point();
+
+        // face center is arithmetic mean of face vertexes position's
+        for (E vertex : this.vertexList) {
+            Point position = vertex.getPosition();
+
+            faceCenter.x += position.x;
+            faceCenter.y += position.y;
+        }
+
+        faceCenter.x /= this.vertexList.size();
+        faceCenter.y /= this.vertexList.size();
+
+        return faceCenter;
     }
 
     /**
