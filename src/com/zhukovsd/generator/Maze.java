@@ -96,12 +96,12 @@ public class Maze<T extends EmbeddedVertex<T>> extends DrawableMaze {
     /**
      * Vertex, which lays inside of face, which is first face of maze path.
      */
-    DualVertex<T> entryVertex;
+    public DualVertex<T> entryVertex;
 
     /**
      * Vertex, which lays inside of face, which is the destination face of maze path.
      */
-    DualVertex<T> exitVertex;
+    public DualVertex<T> exitVertex;
 
     /**
      * Create maze for given initial walls graph and it's graph view. Dual graph also created in constructor.
