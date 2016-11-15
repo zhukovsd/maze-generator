@@ -11,6 +11,13 @@ public class Point {
         this.y = y;
     }
 
+    public Point shift(double x, double y) {
+        this.x += x;
+        this.y += y;
+
+        return this;
+    }
+
     public Point() {
     }
 

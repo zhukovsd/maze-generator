@@ -7,6 +7,8 @@ import com.zhukovsd.graphs.embedded.EmbeddedVertex;
  *  Vertex of graph in form of circular lattice, which position described by polar coordinates.
  */
 public class CircularVertex extends EmbeddedVertex<CircularVertex> {
+    private Point graphSize;
+
     /**
      * Polar coordinate of current vertex, describing its distance from center.
      */
@@ -21,8 +23,10 @@ public class CircularVertex extends EmbeddedVertex<CircularVertex> {
      * Create circular vertex with given polar coordinates.
      * @param r {@link #r}
      * @param q {@link #q}
+     * @param graphSize
      */
-    public CircularVertex(double r, double q) {
+    public CircularVertex(double r, double q, Point graphSize) {
+        this.graphSize = graphSize;
         this.r = r;
         this.q = q;
     }
@@ -33,6 +37,6 @@ public class CircularVertex extends EmbeddedVertex<CircularVertex> {
      */
     @Override
     public Point getPosition() {
-        return new Point(r * Math.cos(q), r * Math.sin(q));
+        return new Point(r * Math.cos(q), r * Math.sin(q)).shift(graphSize.x / 2, graphSize.y / 2);
     }
 }

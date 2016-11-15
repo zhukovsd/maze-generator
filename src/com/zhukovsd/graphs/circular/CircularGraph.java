@@ -1,5 +1,6 @@
 package com.zhukovsd.graphs.circular;
 
+import com.zhukovsd.Point;
 import com.zhukovsd.graphs.embedded.EmbeddedGraph;
 
 import java.util.ArrayList;
@@ -69,13 +70,18 @@ public class CircularGraph extends EmbeddedGraph<CircularVertex> {
         // with same angular coordinate, which lays on adjacent concentric circles
         ArrayList<LinkedHashMap<Double, CircularVertex>> lattice = new ArrayList<>();
 
+        Point size = new Point(
+                (2 * circleCount - 2) + Math.round(centerFactor * 2),
+                (2 * circleCount - 2) + Math.round(centerFactor * 2)
+        );
+
         for (int i = 0; i < circleCount; i++) {
             lattice.add(new LinkedHashMap<Double, CircularVertex>());
 
             int vertexCount = getVertexCountByCircle(i);
             for (int j = 0; j < vertexCount; j++) {
                 double angle = 2 * Math.PI / vertexCount * j;
-                CircularVertex vertex = new CircularVertex(i + centerFactor, angle);
+                CircularVertex vertex = new CircularVertex(i + centerFactor, angle, size);
 
                 lattice.get(i).put(angle, vertex);
                 addVertex(vertex);
