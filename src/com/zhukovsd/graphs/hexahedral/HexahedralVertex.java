@@ -3,6 +3,8 @@ package com.zhukovsd.graphs.hexahedral;
 import com.zhukovsd.Point;
 import com.zhukovsd.graphs.embedded.EmbeddedVertex;
 
+import static java.lang.Math.sqrt;
+
 /**
  * Vertex of graph in form of hexahedral lattice, which position described by row and column indexes in this lattice.
  */
@@ -34,6 +36,9 @@ public class HexahedralVertex extends EmbeddedVertex<HexahedralVertex> {
      */
     @Override
     public Point getPosition() {
-        return new Point(latticeRowIndex, latticeColumnIndex);
+        int wholeCount = (latticeColumnIndex / 2);
+        int halfCount = (latticeColumnIndex + 1) / 2;
+
+        return new Point((wholeCount) + (((double) halfCount) / 2), latticeRowIndex * sqrt(3) / 2);
     }
 }
