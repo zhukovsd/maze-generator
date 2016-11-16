@@ -16,7 +16,7 @@ public class SubGraph<E extends Vertex<E>> extends Graph<SubGraphVertex<E>> {
     Graph<E> parentGraph;
 
     // map that consists of pairs of parent vertex and corresponding subgraph vertex.
-    HashMap<Vertex<E>, SubGraphVertex<E>> parentVertexesMap = new HashMap<>();
+    HashMap<Vertex<?>, SubGraphVertex<E>> parentVertexesMap = new HashMap<>();
 
     /**
      * Create empty subgraph for given parent {@link Graph graph}.
@@ -52,7 +52,7 @@ public class SubGraph<E extends Vertex<E>> extends Graph<SubGraphVertex<E>> {
      * @param parentVertex given parent vertex
      * @return found vertex
      */
-    public SubGraphVertex<E> vertexByParent(E parentVertex) {
+    public SubGraphVertex<E> vertexByParent(Vertex<?> parentVertex) {
         return parentVertexesMap.get(parentVertex);
     }
 
