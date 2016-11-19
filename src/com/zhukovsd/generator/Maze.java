@@ -250,7 +250,7 @@ public class Maze<T extends EmbeddedVertex<T>> extends DrawableMaze {
         }
     }
 
-    private double findMinimalRoomsPassage() {
+    public double findMinimalRoomsPassage() {
         // чтобы найти максимально допустимую ширину шарика, перемещающегося по лабиринту, нужно найти
         // самый узкий проход между комнатами.
         //
