@@ -9,12 +9,21 @@ import com.zhukovsd.graphs.subgraphs.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.Random;
 
 /**
  * Actual maze implementation, parametrized with vertex type.
  * @param <T> type of vertex which forms initial graph of current maze generator
  */
 public class Maze<T extends EmbeddedVertex<T>> extends DrawableMaze {
+    static Random seedRand = new Random();
+
+    private long seed;
+
+    public long getSeed() {
+        return seed;
+    }
+
     /**
      * Options of maze generation.
      */
@@ -168,7 +177,15 @@ public class Maze<T extends EmbeddedVertex<T>> extends DrawableMaze {
      */
     @Override
     public void generate() {
-        pathSpanningTree = SubGraphFactory.createSpanningTree(dualGraph, mazeGenerationOptions.pathTreeExcludedVertexes);
+        this.generate(seedRand.nextLong());
+    }
+
+    public void generate(long randomSeed) {
+        this.seed = randomSeed;
+
+        pathSpanningTree = SubGraphFactory.createSpanningTree(
+                dualGraph, mazeGenerationOptions.pathTreeExcludedVertexes, new Random(randomSeed)
+        );
         pathView = new SubGraphView<>(pathSpanningTree, dualView);
 
         shortestPath = SubGraphFactory.createShortestPath(pathSpanningTree, pathSpanningTree.vertexByParent(entryVertex),

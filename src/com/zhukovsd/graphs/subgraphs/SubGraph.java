@@ -61,8 +61,7 @@ public class SubGraph<E extends Vertex<E>> extends Graph<SubGraphVertex<E>> {
      * based on depth-first search.
      * @param excludedVertexes vertexes, which will not be included in resulting spanning tree
      */
-    public void findSpanningTree(ArrayList<E> excludedVertexes) {
-        Random rand = new Random();
+    public void findSpanningTree(ArrayList<E> excludedVertexes, Random rand) {
         List<Vertex<E>> list = new ArrayList<>();
 
         list.add(parentGraph.vertexList.get(0));
