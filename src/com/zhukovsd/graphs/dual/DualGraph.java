@@ -52,7 +52,7 @@ public class DualGraph<E extends EmbeddedVertex<E>> extends Graph<DualVertex<E>>
      * @param face given face
      * @return found vertex
      */
-    public DualVertex<E> vertexByFace(Face<E> face) {
+    public DualVertex<E> vertexByFace(Face<?> face) {
         for (DualVertex<E> vertex : vertexList) {
             if (vertex.face == face)
                 return vertex;

@@ -53,7 +53,7 @@ public class Maze<T extends EmbeddedVertex<T>> extends DrawableMaze {
      * {@link DualGraph Dual graph} of {@link #graph initial graph}, each its vertex corresponds to face of initial graph,
      * represents {@link MazeGraphKind#DUAL_GRAPH}.
      */
-    DualGraph<T> dualGraph;
+    public DualGraph<T> dualGraph;
 
     /**
      * {@link com.zhukovsd.graphs.GraphView View} of {@link #dualGraph}.
@@ -96,7 +96,7 @@ public class Maze<T extends EmbeddedVertex<T>> extends DrawableMaze {
     /**
      * Vertex, which lays inside of face, which is first face of maze path.
      */
-    public DualVertex<T> entryVertex;
+    public DualVertex<?> entryVertex;
 
     /**
      * Vertex, which lays inside of face, which is the destination face of maze path.
@@ -227,13 +227,13 @@ public class Maze<T extends EmbeddedVertex<T>> extends DrawableMaze {
      * adjacent to ant of excluded vertexes face.
      * @param vertex given vertex
      */
-    private void removeBoundaryEdge(DualVertex<T> vertex) {
+    private void removeBoundaryEdge(DualVertex<?> vertex) {
         // delete entry and exit walls
-        for (Edge<T> edge : vertex.face.edgeList) {
+        for (Edge<?> edge : vertex.face.edgeList) {
             boolean flag = false;
 
-            for (Face<T> adjacentFace : vertex.face.adjacentFaceList) {
-                EdgeList<T> commonEdges = vertex.face.findCommonEdges(adjacentFace);
+            for (Face<?> adjacentFace : vertex.face.adjacentFaceList) {
+                EdgeList<?> commonEdges = vertex.face.findCommonEdges(adjacentFace);
 
                 if (commonEdges.contains(edge) && !mazeGenerationOptions.pathTreeExcludedVertexes.contains(
                         dualGraph.vertexByFace(adjacentFace)

@@ -43,7 +43,7 @@ public class SubGraph<E extends Vertex<E>> extends Graph<SubGraphVertex<E>> {
      * @param leftParentVertex parent vertex for source of removed edge
      * @param rightParentVertex parent vertex for destination of removed edge
      */
-    public void disconnectFromEachOtherByParents(E leftParentVertex, E rightParentVertex) {
+    public void disconnectFromEachOtherByParents(Vertex leftParentVertex, Vertex rightParentVertex) {
         disconnectFromEachOther(parentVertexesMap.get(leftParentVertex), parentVertexesMap.get(rightParentVertex));
     }
 
