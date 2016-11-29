@@ -1,5 +1,6 @@
 package com.zhukovsd.generator;
 
+import com.zhukovsd.Point;
 import com.zhukovsd.graphs.Edge;
 import com.zhukovsd.graphs.EdgeList;
 import com.zhukovsd.graphs.dual.*;
@@ -248,6 +249,21 @@ public class Maze<T extends EmbeddedVertex<T>> extends DrawableMaze {
                 return;
             }
         }
+    }
+
+    public Point getSize() {
+        // TODO move getSize calculation from graph view to graph and call it here
+
+        Point result = new Point();
+
+        for (T vertex : graph.vertexList) {
+            Point position = vertex.getPosition();
+
+            result.x = Math.max(result.x, position.x);
+            result.y = Math.max(result.y, position.y);
+        }
+
+        return result;
     }
 
     public double findMinimalRoomsPassage() {
