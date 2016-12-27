@@ -89,4 +89,14 @@ public class Graph<E extends Vertex<E>> {
     public boolean isConnected(E left, E right) {
         return (reverseEdgesMap.containsKey(new Edge<>(left, right)));
     }
+
+    public EdgeList<E> getEdgeList() {
+        EdgeList<E> result = new EdgeList<>();
+
+        for (E vertex : vertexList) {
+            result.addAll(vertex.edgeList);
+        }
+
+        return result;
+    }
 }
