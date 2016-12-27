@@ -48,11 +48,11 @@ public class Face<E extends EmbeddedVertex<E>> {
      * @param face face to search common faces with
      * @return list of common edges
      */
-    public EdgeList<E> findCommonEdges(Face<E> face) {
+    public EdgeList<E> findCommonEdges(Face<?> face) {
         EdgeList<E> result = new EdgeList<>();
 
         for (Edge<E> edge1 : edgeList) {
-            for (Edge<E> edge2 : face.edgeList) {
+            for (Edge<?> edge2 : face.edgeList) {
                 if (((edge1.source == edge2.source) && (edge1.destination == edge2.destination)) ||
                         ((edge1.source == edge2.destination) && (edge1.destination == edge2.source))
                 ) {

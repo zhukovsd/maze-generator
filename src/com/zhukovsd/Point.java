@@ -6,6 +6,9 @@ package com.zhukovsd;
 public class Point {
     public double x, y;
 
+    public Point() {
+    }
+
     public Point(double x, double y) {
         this.x = x;
         this.y = y;
@@ -18,8 +21,9 @@ public class Point {
         return this;
     }
 
-    public Point() {
-    }
+    public double distance(Point p) {
+        return Math.sqrt(Math.pow(x - p.x, 2) + Math.pow(y - p.y, 2));
+    };
 
     @Override
     public String toString() {

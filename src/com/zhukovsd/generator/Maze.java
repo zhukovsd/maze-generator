@@ -249,4 +249,37 @@ public class Maze<T extends EmbeddedVertex<T>> extends DrawableMaze {
             }
         }
     }
+
+    private double findMinimalRoomsPassage() {
+        // чтобы найти максимально допустимую ширину шарика, перемещающегося по лабиринту, нужно найти
+        // самый узкий проход между комнатами.
+        //
+        // шириной прохода между комнатами является длина общей грани этих комнат. примем допущение, что у соседних граней
+        // не может быть больше одной общей стены, для моих круглых/квадратных/шестигранных лабириентов это так, но это
+        // не обязательно так для лабиринта в произвольном графе
+
+        SubGraph<? extends DualVertex<? extends EmbeddedVertex>> pathGraph = pathSpanningTree;
+        // объединим все рёбра графа в один список
+        EdgeList<? extends SubGraphVertex<? extends DualVertex<? extends EmbeddedVertex>>> edgeList = pathGraph.getEdgeList();
+
+        double minWidth = Double.MAX_VALUE;
+
+        // проитерируем все рёбра
+        for (Edge<? extends SubGraphVertex<? extends DualVertex<? extends EmbeddedVertex>>> edge : edgeList) {
+            // пара граней, которые соединены текущим ребром
+            Face<? extends EmbeddedVertex> sourceFace = edge.source.parentVertex.face;
+            Face<? extends EmbeddedVertex> destFace = edge.destination.parentVertex.face;
+
+            // найдём их общее ребро и её длину
+            EdgeList<? extends EmbeddedVertex> commonEdges = sourceFace.findCommonEdges(destFace);
+
+            Edge<? extends EmbeddedVertex> passageEdge = commonEdges.get(0);
+            double width = passageEdge.source.getPosition().distance(passageEdge.destination.getPosition());
+
+            // ищем минимальную длину
+            minWidth = Math.min(minWidth, width);
+        }
+
+        return minWidth;
+    }
 }
