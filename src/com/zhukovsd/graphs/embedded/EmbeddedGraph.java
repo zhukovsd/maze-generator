@@ -160,7 +160,9 @@ public class EmbeddedGraph<E extends EmbeddedVertex<E>> extends Graph<E> {
 
         // compose add all edges of graph into one list
         for (E vertex : vertexList) {
-            vertex.edgeList.sort(edgeComparator);
+//            vertex.edgeList.sort(edgeComparator);
+            Collections.sort(vertex.edgeList, edgeComparator);
+
             edgeList.addAll(vertex.edgeList);
         }
 
