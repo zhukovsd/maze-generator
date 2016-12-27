@@ -64,7 +64,7 @@ public class Maze<T extends EmbeddedVertex<T>> extends DrawableMaze {
      * Spanning tree of {@link #dualGraph dual graph}, which represents all possible paths in {@link #graph initial graph},
      * corresponds to {@link MazeGraphKind#PATH_SPANNING_TREE}.
      */
-    SubGraph<DualVertex<T>> pathSpanningTree;
+    public SubGraph<DualVertex<T>> pathSpanningTree;
 
     /**
      * {@link com.zhukovsd.graphs.GraphView View} of {@link #pathSpanningTree}.
@@ -75,7 +75,7 @@ public class Maze<T extends EmbeddedVertex<T>> extends DrawableMaze {
      * Shortest path in {@link #pathSpanningTree path spanning tree}, which represents maze solution, corresponds to
      * {@link MazeGraphKind#SHORTEST_PATH}.
      */
-    SubGraph<SubGraphVertex<DualVertex<T>>> shortestPath;
+    public SubGraph<SubGraphVertex<DualVertex<T>>> shortestPath;
 
     /**
      * {@link com.zhukovsd.graphs.GraphView View} of {@link #shortestPath}.
@@ -86,7 +86,7 @@ public class Maze<T extends EmbeddedVertex<T>> extends DrawableMaze {
      * Resulting walls configuration, which is subgraph of {@link #graph initial graph} non-including walls, intersected by
      * {@link #pathSpanningTree path spanning tree}, corresponds to {@link MazeGraphKind#RESULTING_GRAPH}.
      */
-    SubGraph<T> resultingGraph;
+    public SubGraph<T> resultingGraph;
 
     /**
      * {@link com.zhukovsd.graphs.GraphView View} of {@link #resultingGraph}.
