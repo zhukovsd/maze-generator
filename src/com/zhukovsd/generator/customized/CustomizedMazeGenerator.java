@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,23 +20,25 @@ import java.util.Locale;
  */
 public class CustomizedMazeGenerator {
     private final CustomizedMazeParameters params;
+    private final int number;
     private final String title;
 
     public Maze<?> maze = null;
 
-    public CustomizedMazeGenerator(CustomizedMazeParameters params, String title) {
+    public CustomizedMazeGenerator(CustomizedMazeParameters params, int number, String title) {
         this.params = params;
+        this.number = number;
         this.title = title;
     }
 
     private Maze<?> createEmptyMaze() {
 //        switch (params.kind) {
 //            case RECTANGULAR:
-                return MazeFactory.createRectangularMaze(
-                    params.sizeParam(CustomizedMazeParameters.WIDTH),
-                    params.sizeParam(CustomizedMazeParameters.HEIGHT),
-                    10, 20
-                );
+        return MazeFactory.createRectangularMaze(
+                params.sizeParam(CustomizedMazeParameters.WIDTH),
+                params.sizeParam(CustomizedMazeParameters.HEIGHT),
+                10, 20
+        );
 
 //            default:
 //                return null;
@@ -67,7 +70,7 @@ public class CustomizedMazeGenerator {
             }
         }
 
-        System.out.println("pathRatio = " + pathRatio + ", count = " + attemptsCount);
+        System.out.println(this.number + ". pathRatio = " + pathRatio + ", count = " + attemptsCount);
 
         return this;
     }
@@ -107,11 +110,11 @@ public class CustomizedMazeGenerator {
         graphics.setFont(new Font("Courier New", Font.PLAIN, 20));
 
         graphics.drawString(String.format(
-            new Locale("en", "US"),
-            "maze %s, %dx%d, %.2f" + Character.toString((char)177) + "%.3f", this.title,
-            params.sizeParam(CustomizedMazeParameters.WIDTH),
-            params.sizeParam(CustomizedMazeParameters.HEIGHT),
-            params.desiredPathRatio, params.pathRatioEpsilon
+                new Locale("en", "US"),
+                "maze %s, %dx%d, %.2f" + Character.toString((char)177) + "%.3f", this.title,
+                params.sizeParam(CustomizedMazeParameters.WIDTH),
+                params.sizeParam(CustomizedMazeParameters.HEIGHT),
+                params.desiredPathRatio, params.pathRatioEpsilon
         ), 10, 25);
 
         return image;
@@ -131,12 +134,26 @@ public class CustomizedMazeGenerator {
                 CustomizedMazeParameters.makeRectangularMazeParams(29, 29, 0.30, 0.01) // 10
         ));
 
-        for (int i = 0; i < tasks.size(); i++) {
-            BufferedImage image = new CustomizedMazeGenerator(
-                    tasks.get(i), String.valueOf(i + 1) + "/" + String.valueOf(tasks.size())
-            ).generate().render();
+        FileWriter writer = new FileWriter("D:/Mazes/mazes.txt");
 
-            ImageIO.write(image, "png", new File("D:/Mazes/" + (i + 1) + ".png"));
+        for (int i = 0; i < tasks.size(); i++) {
+            CustomizedMazeGenerator generator = new CustomizedMazeGenerator(
+                    tasks.get(i), i, String.valueOf(i) + "/" + String.valueOf(tasks.size())
+            );
+            BufferedImage image = generator.generate().render();
+
+            //
+            writer.append(String.format(
+                    "%d rect %d %d %d", i,
+                    generator.params.sizeParam(CustomizedMazeParameters.WIDTH),
+                    generator.params.sizeParam(CustomizedMazeParameters.HEIGHT),
+                    generator.maze.getSeed()
+            )).append(System.lineSeparator());
+            //
+
+            ImageIO.write(image, "png", new File("D:/Mazes/renders/" + (i) + ".png"));
         }
+
+        writer.close();
     }
 }
