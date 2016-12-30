@@ -1,10 +1,12 @@
 package com.zhukovsd.graphs;
 
+import java.io.Serializable;
+
 /**
  * Edge of {@link Graph graph}, a directional connection between 2 {@link Vertex vertexes}.
  * @param <T> type of vertexes, connected by edge
  */
-public class Edge<T extends Vertex<T>> {
+public class Edge<T extends Vertex<T>> implements Serializable {
     /**
      * One of {@link Vertex vertexes} connected by current edge
      */

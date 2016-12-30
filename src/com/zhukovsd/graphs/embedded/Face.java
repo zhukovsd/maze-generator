@@ -5,6 +5,7 @@ import com.zhukovsd.graphs.Edge;
 import com.zhukovsd.graphs.EdgeList;
 import com.zhukovsd.graphs.Vertex;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * Face is the part of the plain, on which {@link EmbeddedGraph embedded graph} is placed, bounded by edges.
  * @param <E> type of {@link Vertex vertexes} of embedded graph, which vertexes and edges forms face
  */
-public class Face<E extends EmbeddedVertex<E>> {
+public class Face<E extends EmbeddedVertex<E>> implements Serializable {
     /**
      * Edges, which bounds current face.
      */

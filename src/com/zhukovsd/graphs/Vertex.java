@@ -1,5 +1,7 @@
 package com.zhukovsd.graphs;
 
+import java.io.Serializable;
+
 /**
  * Vertex of {@link Graph graph}, connected with another vertexes. Class use self-referential type parameter for
  * types of external fields, such as edgeList in all class hierarchy starting from Vertex. That is,
@@ -7,7 +9,7 @@ package com.zhukovsd.graphs;
  * vertex object will instantiated as <code>SpecificVertex</code> object, which is redeems client code from down-casting.
  * @param <T> - self-referential type used as type parameter for {@link #edgeList}
  */
-public class Vertex<T extends Vertex<T>> {
+public class Vertex<T extends Vertex<T>> implements Serializable {
     /**
      * Tag for current vertex, usually a capital latin letter, used for more convenient debugging and in <code>toString()</code>
      * methods of {@link Edge edge} and {@link com.zhukovsd.graphs.embedded.Face face}.

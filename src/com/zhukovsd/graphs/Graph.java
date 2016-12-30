@@ -1,5 +1,6 @@
 package com.zhukovsd.graphs;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  * connected to B, but B not connected to A, are not allowed.
  * @param <E> type of {@link Vertex vertex} in graph
  */
-public class Graph<E extends Vertex<E>> {
+public class Graph<E extends Vertex<E>> implements Serializable {
     /**
      * A list of connected {@link Vertex vertexes}.
      */

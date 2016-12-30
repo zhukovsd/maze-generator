@@ -1,9 +1,11 @@
 package com.zhukovsd;
 
+import java.io.Serializable;
+
 /**
  * Created by ZhukovSD on 22.10.2016.
  */
-public class Point {
+public class Point implements Serializable {
     public double x, y;
 
     public Point() {

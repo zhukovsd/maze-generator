@@ -59,7 +59,7 @@ public class EmbeddedGraph<E extends EmbeddedVertex<E>> extends Graph<E> {
     /**
      * Map, that stores additional data for every edge in edgeList, what is necessary for faces finding algorithm.
      */
-    HashMap<Edge<E>, EdgeData> edgeMap = new HashMap<>();
+    transient HashMap<Edge<E>, EdgeData> edgeMap = new HashMap<>();
 
     /**
      * Lazy initialize of get list of current embedded graph's face list.

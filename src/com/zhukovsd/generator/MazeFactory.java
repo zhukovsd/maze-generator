@@ -12,17 +12,14 @@ public class MazeFactory {
      * Create rectangular maze.
      * @param rowCount row count
      * @param columnCount column count
-     * @param viewBorderIndent outer indent for view
-     * @param viewVertexSpacing indent between vertexes in view
      * @return created maze
      */
     public static Maze<RectangularVertex> createRectangularMaze(
-            int rowCount, int columnCount, int viewBorderIndent, int viewVertexSpacing
+            int rowCount, int columnCount
     ) {
         RectangularGraph graph = new RectangularGraph(rowCount, columnCount);
-        RectangularGraphView view = new RectangularGraphView(graph, viewBorderIndent, viewVertexSpacing);
 
-        Maze<RectangularVertex> result = new Maze<>(graph, view);
+        Maze<RectangularVertex> result = new Maze<>(graph);
 
         result.entryVertex = result.dualGraph.vertexList.get((graph.columnCount - 1) / 2);
         result.exitVertex = result.dualGraph.vertexList.get(result.dualGraph.vertexList.size() - 1 - (graph.columnCount - 1) / 2);
@@ -43,9 +40,8 @@ public class MazeFactory {
             int circleCount, double centerFactor, double chordFactor, int viewBorderIndent, int viewRadialInterval
     ) {
         CircularGraph graph = new CircularGraph(circleCount, centerFactor, chordFactor);
-        CircularGraphView view = new CircularGraphView(graph, viewBorderIndent, viewRadialInterval);
 
-        Maze<CircularVertex> result = new Maze<>(graph, view);
+        Maze<CircularVertex> result = new Maze<>(graph);
         result.mazeGenerationOptions.pathTreeExcludedVertexes.add(result.dualGraph.vertexList.get(1));
 
         return result;
@@ -55,16 +51,11 @@ public class MazeFactory {
      * Create hexahedral maze.
      * @param rowCount row count of hexahedral maze lattice
      * @param columnCount column count of hexahedral maze lattice
-     * @param viewBorderIndent outer indent for view
-     * @param viewVertexSpacing indent between vertexes in view
      * @return created maze
      */
-    public static Maze<HexahedralVertex> createHexahedralMaze(
-            int rowCount, int columnCount, int viewBorderIndent, int viewVertexSpacing
-    ) {
+    public static Maze<HexahedralVertex> createHexahedralMaze(int rowCount, int columnCount) {
         HexahedralGraph graph = new HexahedralGraph(rowCount, columnCount);
-        HexahedralGraphView view = new HexahedralGraphView(graph, viewBorderIndent, viewVertexSpacing);
 
-        return new Maze<>(graph, view);
+        return new Maze<>(graph);
     }
 }
