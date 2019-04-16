@@ -53,7 +53,7 @@ public class Maze<T extends EmbeddedVertex<T>> extends DrawableMaze {
      * {@link DualGraph Dual graph} of {@link #graph initial graph}, each its vertex corresponds to face of initial graph,
      * represents {@link MazeGraphKind#DUAL_GRAPH}.
      */
-    DualGraph<T> dualGraph;
+    public DualGraph<T> dualGraph;
 
     /**
      * {@link com.zhukovsd.graphs.GraphView View} of {@link #dualGraph}.

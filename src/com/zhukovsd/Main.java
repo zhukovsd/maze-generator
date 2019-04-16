@@ -49,7 +49,7 @@ public class Main {
 
         System.out.println("pathRatio = " + highestRatio + ", count = " + attemptsCount);
 
-        Point size = maze.getSize();
+        java.awt.Point size = maze.getSize();
 
         BufferedImage image = new BufferedImage(size.x, size.y, BufferedImage.TYPE_INT_ARGB);
 

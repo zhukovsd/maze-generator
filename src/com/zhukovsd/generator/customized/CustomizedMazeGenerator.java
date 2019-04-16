@@ -48,15 +48,18 @@ public class CustomizedMazeGenerator {
     public CustomizedMazeGenerator generate() {
         boolean mazeFound = false;
 
-        double highestRatio = 0, pathRatio = 0;
+        double highestRatio = 0, lowestRatio = 1, pathRatio = 0;
         int attemptsCount = 0;
 
         while (!mazeFound) {
             maze = createEmptyMaze();
             maze.generate();
 
-            pathRatio = ((double) maze.shortestPath.getEdgeList().size()) / ((double) maze.pathSpanningTree.getEdgeList().size());
+            // pathRatio = ((double) maze.shortestPath.getEdgeList().size()) / ((double) maze.pathSpanningTree.getEdgeList().size());
+            pathRatio = ((double) ((maze.shortestPath.getEdgeList().size() / 2) + 1)) / ((double) maze.dualGraph.vertexList.size());
+
             highestRatio = Math.max(pathRatio, highestRatio);
+            lowestRatio = Math.min(pathRatio, lowestRatio);
 
             double desiredRatio = this.params.desiredPathRatio;
             double ratioEpsilon = this.params.pathRatioEpsilon;
@@ -66,7 +69,7 @@ public class CustomizedMazeGenerator {
             attemptsCount++;
 
             if (attemptsCount % 500 == 0) {
-                System.out.println("count = " + attemptsCount + ", highestRatio = " + highestRatio);
+                System.out.println("count = " + attemptsCount + ", highestRatio = " + highestRatio + ", lowestRatio = " + lowestRatio);
             }
         }
 
@@ -122,19 +125,20 @@ public class CustomizedMazeGenerator {
 
     public static void main(String[] args) throws IOException {
         ArrayList<CustomizedMazeParameters> tasks = new ArrayList<>(Arrays.asList(
-                CustomizedMazeParameters.makeRectangularMazeParams(20, 20, 0.21, 0.01), // 1
-                CustomizedMazeParameters.makeRectangularMazeParams(21, 21, 0.22, 0.01), // 2
-                CustomizedMazeParameters.makeRectangularMazeParams(22, 22, 0.23, 0.01), // 3
-                CustomizedMazeParameters.makeRectangularMazeParams(23, 23, 0.24, 0.01), // 4
-                CustomizedMazeParameters.makeRectangularMazeParams(24, 24, 0.25, 0.01), // 5
-                CustomizedMazeParameters.makeRectangularMazeParams(25, 25, 0.26, 0.01), // 6
-                CustomizedMazeParameters.makeRectangularMazeParams(26, 26, 0.27, 0.01), // 7
-                CustomizedMazeParameters.makeRectangularMazeParams(27, 27, 0.28, 0.01), // 8
-                CustomizedMazeParameters.makeRectangularMazeParams(28, 28, 0.29, 0.01), // 9
-                CustomizedMazeParameters.makeRectangularMazeParams(29, 29, 0.30, 0.01) // 10
+                CustomizedMazeParameters.makeRectangularMazeParams(40, 40, 1d/39d, 1d/39d * 0.30d) // 1
+//                CustomizedMazeParameters.makeRectangularMazeParams(20, 20, 0.21, 0.01), // 1
+//                CustomizedMazeParameters.makeRectangularMazeParams(21, 21, 0.22, 0.01), // 2
+//                CustomizedMazeParameters.makeRectangularMazeParams(22, 22, 0.23, 0.01), // 3
+//                CustomizedMazeParameters.makeRectangularMazeParams(23, 23, 0.24, 0.01), // 4
+//                CustomizedMazeParameters.makeRectangularMazeParams(24, 24, 0.25, 0.01), // 5
+//                CustomizedMazeParameters.makeRectangularMazeParams(25, 25, 0.26, 0.01), // 6
+//                CustomizedMazeParameters.makeRectangularMazeParams(26, 26, 0.27, 0.01), // 7
+//                CustomizedMazeParameters.makeRectangularMazeParams(27, 27, 0.28, 0.01), // 8
+//                CustomizedMazeParameters.makeRectangularMazeParams(28, 28, 0.29, 0.01), // 9
+//                CustomizedMazeParameters.makeRectangularMazeParams(29, 29, 0.30, 0.01) // 10
         ));
 
-        FileWriter writer = new FileWriter("D:/Mazes/mazes.txt");
+        FileWriter writer = new FileWriter("D:/Mazes/40x40 simple/mazes.txt");
 
         for (int i = 0; i < tasks.size(); i++) {
             CustomizedMazeGenerator generator = new CustomizedMazeGenerator(
@@ -151,7 +155,7 @@ public class CustomizedMazeGenerator {
             )).append(System.lineSeparator());
             //
 
-            ImageIO.write(image, "png", new File("D:/Mazes/renders/" + (i) + ".png"));
+            ImageIO.write(image, "png", new File("D:/Mazes/40x40 simple/renders/" + (i) + ".png"));
         }
 
         writer.close();
