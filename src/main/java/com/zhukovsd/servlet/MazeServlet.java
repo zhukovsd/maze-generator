@@ -5,6 +5,7 @@ import com.zhukovsd.generator.MazeFactory;
 import com.zhukovsd.generator.MazeGraphKind;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -16,6 +17,7 @@ import java.util.EnumSet;
 /**
  * Servlet implementation of web-service generating mazes.
  */
+@WebServlet("/Maze")
 public class MazeServlet extends HttpServlet {
     /**
      * Request callback implementation. Request "data" parameter is a string  described in {@link ServletRequest ServletRequest class},
