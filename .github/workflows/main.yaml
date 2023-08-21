@@ -1,0 +1,20 @@
+name: Publish Docker Image to Docker Hub
+
+on:
+  push:
+    branches: ['master']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Publish to DockerHub
+        uses: mr-smithers-excellent/docker-build-push@v6
+        with:
+          image: zhukovsd/maze-generator
+          registry: docker.io
+          tags: latest
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
