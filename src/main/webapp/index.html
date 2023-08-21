@@ -36,6 +36,9 @@
                     else
                         mazeform.setAttribute("hidden", "");
                 }
+
+                // automatically request a new maze on switching geometry
+                MazeManager.requestMaze(FormMazeRequestData.getRequestData());
             }
         }
 
