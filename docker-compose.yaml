@@ -1,0 +1,8 @@
+version: '3.7'
+
+services:
+  maze-generator:
+    image: zhukovsd/maze-generator:latest
+    restart: always
+    ports:
+      - "80:8080"
