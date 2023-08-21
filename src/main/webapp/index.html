@@ -1,0 +1,151 @@
+<html>
+<meta charset="utf-8">
+<link href="/css/style.css" rel="stylesheet" type="text/css" />
+<script src="/js/MazeManager.js"></script>
+<script src="/js/MazeView.js"></script>
+<script src="/js/FormMazeRequestData.js"></script>
+<script src="/js/canvas2image.js"></script>
+<script type="text/javascript">
+    MazeGeometry = {
+        RECTANGULAR: 0,
+        CIRCULAR: 1
+    }
+
+    window.onload = function() {
+        MazeView.init();
+
+        // set mazegeometry buttons events
+        var geometrybuttons = document.querySelectorAll(".mazegeometrybutton");
+        for (var i = 0; i < geometrybuttons.length; i++) {
+            geometrybuttons.item(i).onclick = function() {
+                // set active geometry value to form request data
+                FormMazeRequestData.geometry = this.getAttribute("geometry");
+
+                // remove active attribute from previous active button
+                document.querySelector(".mazegeometrybutton[active]").removeAttribute("active");
+                // set active attribute to clicked button
+                this.setAttribute("active", "");
+
+                // show selected form and hide another ones
+                var mazeforms = document.querySelectorAll(".mazegeometryform");
+                for (var j = 0; j < mazeforms.length; j++) {
+                    var mazeform = mazeforms.item(j);
+
+                    if (this.getAttribute("geometry") == mazeform.getAttribute("geometry"))
+                        mazeform.removeAttribute("hidden");
+                    else
+                        mazeform.setAttribute("hidden", "");
+                }
+            }
+        }
+
+        // set save button event
+        document.getElementById("savebutton").onclick = function() {
+            var canvas = document.getElementById("mazecanvas");
+
+            if ((canvas.width != 0) && (canvas.height != 0))
+                Canvas2Image.saveAsPNG(canvas, canvas.width, canvas.height);
+        }
+
+        // request initial maze
+        MazeManager.requestMaze(FormMazeRequestData.getRequestData());
+    }
+
+    MazeManager.onStateChange = function() {
+        var preloader = document.getElementById("preloader");
+        var errorContainer = document.getElementById("errorcontainer");
+        var errorLabel = document.getElementById("errorlabel");
+
+        if (MazeManager.state == MazeManagerState.LOADING)
+            preloader.removeAttribute("hidden");
+        else
+            preloader.setAttribute("hidden", "");
+
+        //
+
+        switch (MazeManager.state) {
+            case (MazeManagerState.LOADING): {
+                break;
+            }
+            case (MazeManagerState.LOADED): {
+                errorContainer.setAttribute("hidden", "");
+
+                MazeView.setMazeData(MazeManager.mazeData);
+                MazeView.setVisibleByKind(MazeGraphKind.SHORTEST_PATH, document.getElementById("showpathcheckbox").checked);
+
+                MazeView.paint();
+
+                break;
+            }
+            case (MazeManagerState.NETWORK_ERROR): {
+                errorContainer.removeAttribute("hidden");
+                errorLabel.innerHTML = "Error during communication with the server";
+
+                break;
+            }
+            case (MazeManagerState.SERVER_ERROR): {
+                errorContainer.removeAttribute("hidden");
+                errorLabel.innerHTML = MazeManager.mazeData.message;
+            }
+        }
+    }
+</script>
+<body>
+<h1 align="center">Online demo for maze-generator project</h1>
+
+<div id="controlscontainer">
+    <input class="mazegeometrybutton" type="button" geometry="0" active/>
+    <input class="mazegeometrybutton" type="button" geometry="1"/>
+    <input class="mazegeometrybutton" type="button" geometry="2"/>
+
+    <div id="rectangularmazeform" class="mazegeometryform" geometry="0">
+        <input id="rectrowcountedit" class="formnumberinput" value="30" type="number" min="3" max="200"/>
+        <div class="formvaluedescription">Row count, from 3 to 200</div>
+
+        <hr class="formhr">
+
+        <input id="rectcolumncountedit" class="formnumberinput" value="30" type="number" min="3" max="200"/>
+        <div class="formvaluedescription">Column count, from 3 to 200</div>
+    </div>
+
+    <div id="circularmazeform" class="mazegeometryform" geometry="1" hidden>
+        <input id="circlecountedit" class="formnumberinput" value="12" type="number" min="2" max="120"/>
+        <div class="formvaluedescription">Circle count, from 2 to 120</div>
+    </div>
+
+    <div id="hexahedralmazeform" class="mazegeometryform" geometry="2" hidden>
+        <input id="hexrowcountedit" class="formnumberinput" value="30" type="number" min="6" max="200"/>
+        <div class="formvaluedescription">Row count, from 6 to 200</div>
+
+        <hr class="formhr">
+
+        <input id="hexcolumncountedit" class="formnumberinput" value="40" type="number" min="6" max="200"/>
+        <div class="formvaluedescription">Column count, from 6 to 200</div>
+    </div>
+
+    <div id="controlbuttonscontainer">
+        <input value="Request" onclick="MazeManager.requestMaze(FormMazeRequestData.getRequestData());" type="button"/>
+        <img id="preloader" src="/images/preloader.gif" hidden/>
+        <input id="savebutton" value="Save" type="button"/>
+        <label id="showpathcheckboxlabel" for="showpathcheckbox">Show path</label>
+        <input id="showpathcheckbox" type="checkbox" onchange="MazeView.setVisibleByKind(MazeGraphKind.SHORTEST_PATH, this.checked);">
+    </div>
+</div>
+
+<div id="errorcontainer" hidden>
+    <div id="errorlabel">
+        Incorrect maze parameters
+    </div>
+</div>
+
+<div id="mazecanvascontainer">
+    <canvas id="mazecanvas"></canvas>
+</div>
+
+<div id="footer">
+    <a href="https://github.com/zhukovsd/maze-generator/wiki/How-it-works-(ru)" style="margin-right: 25px">How it works?</a>
+    <a href="https://github.com/zhukovsd/maze-generator" style="margin-right: 25px">Sources</a>
+    <a href="https://github.com/zhukovsd">Author</a>
+</div>
+</body>
+</html>
